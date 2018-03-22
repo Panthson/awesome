@@ -1,0 +1,95 @@
+.std-height{
+  height: 75vh;
+}
+
+.std-margin{
+  margin: 5px;
+}
+
+.std-border{
+  border: 1px solid black;
+  border-radius: 3px;
+}
+
+.module-background{
+  background-color: #5C5E68;
+}
+
+body{
+  background-color: #374143;
+  color: #fbfbfb;
+}
+
+button{
+  background-color: transparent;
+  border: transparent;
+  border-radius: 3px;
+}
+
+/* LEFT */
+#left{
+  float: left;
+  width: 20%;
+}
+
+#histogram-wrapper{
+  height: 80%;
+}
+
+#histograph-filter-wrapper{
+  height: 20%;
+}
+
+/* CENTER */
+#center{
+  float: left;
+  width: 40%;
+}
+
+#search-bar-wrapper{
+  height: 5%;
+}
+
+#newspaper-wrapper{
+  height: 95%;
+  overflow-y: auto;
+}
+
+.newspaper{
+  height: 35%;
+  border: 1px solid black;
+}
+
+.newspaper-header{
+  font-size: 2.5vh;
+  float: left;
+}
+
+.newspaper-date{
+  font-size: 2.5vh;
+  float: right;
+}
+.newspaper-content{
+  float: left;
+}
+
+#date-range{
+  text-align: center;
+  border-bottom: 1px solid black;
+  height: 5%;
+  font-size: 2.5vh;
+}
+
+/* RIGHT */
+#right{
+  float: left;
+  width: 40%;
+}
+
+#knowledge-graph-wrapper{
+  height: 50%;
+}
+
+#topic-graph-wrapper{
+  height: 50%;
+}
