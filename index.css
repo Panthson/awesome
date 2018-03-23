@@ -40,6 +40,13 @@ button{
   height: 20%;
 }
 
+#filter-button{
+  float: right;
+  background-color: #374143;
+  position: relative;
+  top: 75%;
+}
+
 /* CENTER */
 #center{
   float: left;
@@ -66,7 +73,7 @@ button{
 }
 
 .newspaper{
-  height: 35%;
+  height: 25vh;
   border: 1px solid black;
 }
 
@@ -99,6 +106,12 @@ button{
   height: 50%;
 }
 
+
 #topic-graph-wrapper{
   height: 50%;
+}
+
+.graph-header{
+  text-align: center;
+  border-bottom: 1px solid black;
 }

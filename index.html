@@ -5,7 +5,6 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <!-- jQuery library -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
   <link rel="stylesheet" type="text/css" href="index.css">
 </head>
 
@@ -16,7 +15,7 @@
         Histrogram
       </div>
       <div id="histograph-filter-wrapper" class="std-margin std-border module-background">
-        Histrogram filter
+        <button id="filter-button" class='std-margin'>Filter</button>
       </div>
     </div>
 
@@ -30,43 +29,44 @@
           4/7-5/17
           <button class="glyphicon glyphicon-triangle-right"></button>
         </div>
-        <div class="newspaper">
-          <h3 class="std-margin newspaper-header">
-            test
-          </h3>
-          <div class="std-margin newspaper-date">4/20/17</div>
-          <p class="std-margin newspaper-content">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce
-            venenatis eget lacus sit amet luctus. Vestibulum tempor vel tellus
-            eu elementum. Proin porttitor odio eu tellus sagittis, vel blandit
-            nulla commodo. Sed eu laoreet eros. Cras erat velit, luctus interdum
-            accumsan commodo, feugiat euismod lorem. Integer viverra, velit at
-            vestibulum vestibulum, nibh mi sollicitudin risus, quis fringilla
-            odio augue in nibh. Ut sagittis pellentesque tellus ut laoreet.
-            Fusce sodales sit amet tellus pharetra tempor. Aliquam id feugiat
-            eros, sed congue velit. Donec rutrum ullamcorper ultricies.
-          </p>
-        </div>
-        <div class="newspaper">
-          <h3 class="std-margin newspaper-header">
-            test
-          </h3>
-          <div class="std-margin newspaper-date">11/18/18</div>
-          <p class="std-margin newspaper-content">
-            Nullam dapibus dictum finibus. Morbi molestie rutrum posuere.
-            Maecenas interdum facilisis tincidunt. Maecenas vestibulum vel arcu
-            vel fringilla. Cras vitae maximus justo. Aenean gravida dignissim
-            dignissim. Donec vitae diam eget tellus gravida molestie. Fusce non
-            nisi tellus. Duis fringilla id quam ut feugiat. Sed vulputate
-            vestibulum tortor, eget auctor turpis dictum et. Donec tincidunt
-            quam in purus commodo tempor vitae sit amet augue. Nullam placerat
-            gravida tempor. Praesent posuere erat fringilla, aliquet metus in,
-            aliquet diam. Quisque blandit condimentum lectus, ac egestas velit
-            volutpat ut. Vestibulum leo tortor, maximus at turpis non, accumsan
-            rhoncus risus.
-          </p>
-        </div>
-        <div class="newspaper">
+        <div id="newspapers">
+          <div class="newspaper">
+            <h3 class="std-margin newspaper-header">
+              test
+            </h3>
+            <div class="std-margin newspaper-date">4/20/17</div>
+            <p class="std-margin newspaper-content">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce
+              venenatis eget lacus sit amet luctus. Vestibulum tempor vel tellus
+              eu elementum. Proin porttitor odio eu tellus sagittis, vel blandit
+              nulla commodo. Sed eu laoreet eros. Cras erat velit, luctus interdum
+              accumsan commodo, feugiat euismod lorem. Integer viverra, velit at
+              vestibulum vestibulum, nibh mi sollicitudin risus, quis fringilla
+              odio augue in nibh. Ut sagittis pellentesque tellus ut laoreet.
+              Fusce sodales sit amet tellus pharetra tempor. Aliquam id feugiat
+              eros, sed congue velit. Donec rutrum ullamcorper ultricies.
+            </p>
+          </div>
+          <div class="newspaper">
+            <h3 class="std-margin newspaper-header">
+              test
+            </h3>
+            <div class="std-margin newspaper-date">11/18/18</div>
+            <p class="std-margin newspaper-content">
+              Nullam dapibus dictum finibus. Morbi molestie rutrum posuere.
+              Maecenas interdum facilisis tincidunt. Maecenas vestibulum vel arcu
+              vel fringilla. Cras vitae maximus justo. Aenean gravida dignissim
+              dignissim. Donec vitae diam eget tellus gravida molestie. Fusce non
+              nisi tellus. Duis fringilla id quam ut feugiat. Sed vulputate
+              vestibulum tortor, eget auctor turpis dictum et. Donec tincidunt
+              quam in purus commodo tempor vitae sit amet augue. Nullam placerat
+              gravida tempor. Praesent posuere erat fringilla, aliquet metus in,
+              aliquet diam. Quisque blandit condimentum lectus, ac egestas velit
+              volutpat ut. Vestibulum leo tortor, maximus at turpis non, accumsan
+              rhoncus risus.
+            </p>
+          </div>
+          <div class="newspaper">
           <h3 class="std-margin newspaper-header">
             test
           </h3>
@@ -81,15 +81,32 @@
             lectus in condimentum.
           </p>
         </div>
+          <div class="newspaper">
+            <h3 class="std-margin newspaper-header">
+              test
+            </h3>
+            <div class="std-margin newspaper-date">12/3/45</div>
+            <p class="std-margin newspaper-content">
+              Cras convallis orci eu justo vehicula bibendum. Curabitur ut
+              commodo nisl. Mauris convallis blandit nisi, eget scelerisque est
+              ultrices eget. Mauris euismod nisi neque. Orci varius natoque
+              penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+              Proin tincidunt porttitor felis laoreet varius. Aenean ultricies
+              dolor eu convallis facilisis. Sed in dolor ac dolor vestibulum
+              faucibus ut ac purus. Donec a ipsum sagittis, lacinia mauris nec,
+              venenatis tellus. Donec sit amet bibendum justo.
+            </p>
+          </div>
+        </div>
       </div>
     </div>
 
     <div id="right" class="std-height">
       <div id="knowledge-graph-wrapper" class="std-margin std-border module-background">
-        Knowledge Graph
+        <div class="graph-header">Knowledge Graph</div>
       </div>
       <div id="topic-graph-wrapper" class="std-margin std-border module-background">
-        topicGraph
+        <div class="graph-header">Topic Graph</div>
       </div>
     </div>
   </div>
