@@ -1,7 +1,7 @@
 $(document).ready(function(){
   $(".newspaper").click(function() {
-    createiFrame("http://www.google.com");
-    // createiFrame("http://www.sdsc.edu");
+    // createiFrame("http://www.google.com");
+    createiFrame("http://www.sdsc.edu");
   });
 })
 
@@ -10,36 +10,52 @@ function createiFrame(url){
     .click(removeiFrame)
     .appendTo("body");
 
-  var defaultCannotLoad = $("<div>Loading.</div>")
+  var defaultCannotLoad = $("<div></div>")
     .attr("id", "cannot-load")
     .addClass("frame")
     .addClass("cannot-load")
     .appendTo(frameWrapper)
 
+  var loaderWrapper = $("<div>Loading...</div>")
+    .addClass("loader-wrapper")
+    .appendTo(defaultCannotLoad)
+
+  var loader = $("<div></div>")
+    .addClass("loader")
+    .appendTo(loaderWrapper)
+
   var frame = $("<iframe id='frame' src=" + url + "></iframe>")
     .addClass("frame")
     .appendTo(frameWrapper);
 
-  defaultInterval();
-}
-
-function defaultInterval(){
-  var interval = setInterval(changeDefaultHTML, 1000);
   setTimeout(function(){
-    $("#cannot-load").html("Cannot Load");
-    clearInterval(interval);
-  }, 6000);
+    createPopup(frameWrapper, url);
+  }, 5000);
 }
 
-function changeDefaultHTML(){
-  var defaultScreen = $("#cannot-load")
-  if(defaultScreen.html() === "Loading..."){
-    defaultScreen.html("Loading.")
-    return;
-  }
+function createPopup(frameWrapper, url){
+  var popup = $("<div></div>")
+    .addClass("popup")
+    .attr("title", url)
+    .click(function(){
+      window.open(url);
+    })
+    .appendTo(frameWrapper);
 
-  var html = defaultScreen.html()
-  defaultScreen.html(html + ".")
+  //Create close button with bootstrap X icon.
+  var closePopup = $("<button></button>")
+    .addClass("close-button")
+    .addClass("glyphicon glyphicon-remove")
+    .attr("title", "Close Popup")
+    .click(function(){
+      event.stopPropagation();
+      popup.remove()
+    })
+    .appendTo(popup);
+
+  var popupText = $("<h5>If webpage doesn't load, click this popup to open the webpage in a new window</h5>")
+    .attr("id", "popup-text")
+    .appendTo(popup)
 }
 
 function removeiFrame(){

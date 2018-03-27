@@ -146,12 +146,6 @@ button{
   animation-duration: .75s;
 }
 
-.cannot-load{
-  text-align: center;
-  font-size: 36px;
-  background-color: #5C5E68;
-}
-
 @keyframes fadeIn{
   from {
     opacity: 0;
@@ -169,4 +163,64 @@ button{
     width: 80vw;
     height: 80vh;
   }
+}
+
+.cannot-load{
+  display: table;
+
+  text-align: center;
+  font-size: 36px;
+  background-color: #5C5E68;
+}
+
+.loader-wrapper{
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.loader {
+  border: 16px solid #e8e8e8; /* Light grey */
+  border-top: 16px solid #dd3333; /* Blue */
+  border-radius: 50%;
+  width: 10vh;
+  height: 10vh;
+  animation: spin 1.25s linear infinite;
+  margin: auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.popup{
+  position: relative;
+  background-color: #e8e8e8;
+  border: 2px solid darkgrey;
+  border-radius: 3px;
+  color: black;
+  width: 15vw;
+  height: 10vh;
+  margin: 0;
+
+
+  animation-name: swoosh;
+  animation-duration: 1s;
+}
+
+.close-button{
+  position: absolute;
+  width: 1.5vw;
+  float: right;
+  right: 0%;
+  top: 0%;
+}
+
+#popup-text{
+  margin-top: 2.5vh;
+}
+
+@keyframes swoosh {
+  from{left: -15vw;}
+  to{left: 0vw;}
 }
