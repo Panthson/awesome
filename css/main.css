@@ -118,8 +118,10 @@ button {
   height: auto;
   border: 1px solid black;
   cursor: pointer;
-  borer-left: 0;
+  border-left: 0;
   border-right: 0; }
+  .newspaper p {
+    word-wrap: break-word; }
 
 .newspaper:hover {
   background-color: #7C7E88; }

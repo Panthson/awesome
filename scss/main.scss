@@ -156,6 +156,10 @@ button{
   cursor: pointer;
   border-left: 0;
   border-right: 0;
+
+  p{
+    word-wrap:break-word;
+  }
 }
 
 .newspaper:hover{

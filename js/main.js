@@ -379,6 +379,8 @@ function pushDocument(d){
   li.append(dateLabel);
   li.append(subtext);
 
+  //new SimpleBar(li[0])
+
   $("#newspaper-wrapper").append(li);
 }
 
@@ -396,6 +398,8 @@ function refreshDocuments(visibleDocuments){
     if(!visibleDocuments || visibleDocuments.indexOf(d.docID) !== -1)
       pushDocument(d);
   });
+
+  new SimpleBar($("#newspaper-wrapper")[0]);
 
   if(docIndex === 0){
     $("#larrow").addClass('disabledButton');
