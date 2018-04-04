@@ -139,7 +139,7 @@ function createChart(){
                       display: true,
                   },
                   ticks: {
-                      fontColor: "#CCC", // this here
+                      fontColor: "#000", // this here
                       beginAtZero : true
                   },
               }],
@@ -149,7 +149,7 @@ function createChart(){
                       display: false,
                   },
                   ticks: {
-                      fontColor : "#CCC", // this here
+                      fontColor : "#000", // this here
                   },
               }],
           },
@@ -263,12 +263,14 @@ function getRandomDocument(){
   doc.date = getRandomDate();
   doc.subtext = gibberish(150);
   doc.docID = getRandomInt(RAND_DOC_LENGTH ** 4);
+  doc.title = gibberish(15);
+
 
   if(Math.random() >= 0.5){
-    doc.title = gibberish(15) + " Google"
+    doc.newspaper = "Google Inc";
     doc.url = "https://www.google.com";
   }else{
-    doc.title = gibberish(15) + " SDSC"
+    doc.newspaper = "San Diego Supercomputer Center";
     doc.url = "http://www.sdsc.edu";
   }
 
@@ -364,22 +366,37 @@ function updateDocuments(documents){
 function pushDocument(d){
   var li = $("<li>").addClass('newspaper');
   var title = $("<h3>").addClass('std-margin newspaper-header').text(d.title);
-  var dateLabel = $("<div>").addClass("std-margin newspaper-date").text(d.date.toLocaleDateString());
-  var subtext = $("<p>").addClass('std-margin newspaper-content').text(d.subtext);
+  var subHeading = $("<span>").addClass("std-margin newspaper-subheading");
+  var subtext = $("<p>").addClass('std-margin newspaper-content').text(d.subtext).hide();
+  var arrow = $("<i>").addClass('fas fa-angle-down newspaper-expander');
+
+  var subHeadingText = d.newspaper + ' \u00B7 ' + d.date.toLocaleDateString();
+  subHeading.text(subHeadingText);
 
   li.attr('id', 'doc' + d.docID);
 
-  li.click(function() {
-    // createiFrame("http://www.google.com");
+  title.click(function(){
     createiFrame(d.url);
+  });
+
+  li.click(function() {
+    var expander = li.find(".newspaper-expander");
+    console.log(expander);
+    if(subtext.is(':visible')){
+      subtext.slideUp();
+      expander.removeClass('fa-angle-up');
+      expander.addClass('fa-angle-down');
+    }else
+      subtext.slideDown();
+      expander.removeClass('fa-angle-down');
+      expander.addClass('fa-angle-up');
   });
 
 
   li.append(title);
-  li.append(dateLabel);
+  li.append(subHeading);
+  li.append(arrow);
   li.append(subtext);
-
-  //new SimpleBar(li[0])
 
   $("#newspaper-wrapper").append(li);
 }

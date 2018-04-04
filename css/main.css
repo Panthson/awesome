@@ -24,7 +24,7 @@ body {
   background-color: #5C5E68; }
 
 body {
-  background-color: #374143;
+  background-color: #E8E8E8;
   color: #fbfbfb; }
 
 button {
@@ -97,6 +97,12 @@ button {
   height: 4.75vh;
   position: fixed;
   top: 0; }
+  #search-bar-wrapper i {
+    width: 9%; }
+  #search-bar-wrapper input {
+    width: 91%; }
+  #search-bar-wrapper input:focus {
+    outline: none; }
 
 #search-bar {
   width: 97.5%;
@@ -112,37 +118,66 @@ button {
   height: 87.75vh;
   overflow-y: auto;
   position: fixed;
-  bottom: 0; }
+  bottom: 0;
+  background-color: #E8E8E8;
+  list-style-type: none; }
 
 .newspaper {
   height: auto;
-  border: 1px solid black;
+  border: 1px solid grey;
+  border-radius: 1%;
   cursor: pointer;
-  border-left: 0;
-  border-right: 0; }
+  color: black;
+  background: white;
+  margin-top: 0.5vh;
+  margin-bottom: 0.5vh;
+  margin-left: 0vw;
+  margin-right: 0vw;
+  position: relative;
+  box-shadow: 0.5px 1px 0.5px grey;
+  transition: box-shadow 0.2s; }
   .newspaper p {
     word-wrap: break-word; }
 
 .newspaper:hover {
-  background-color: #7C7E88; }
-  .newspaper:hover .newspaper-header {
-    text-decoration: underline; }
-  .newspaper:hover .newspaper-date {
-    font-style: italic; }
+  box-shadow: 1px 2px 1px grey; }
+  .newspaper:hover .newspaper-expander {
+    color: black; }
+
+.newspaper .newspaper-expander:hover {
+  color: #2962ff; }
+
+.newspaper-header:hover {
+  border-bottom: 1px solid #2962ff;
+  color: #2962ff; }
 
 .disabledButton {
   color: grey;
   cursor: default; }
 
 .newspaper-header {
-  font-style: italic;
+  font-size: 140%;
+  font-weight: 600;
   display: inline-block;
   margin-top: 1.5vh;
-  margin-bottom: 0; }
+  margin-bottom: 0.25vh;
+  border-bottom: 1px solid white;
+  -webkit-transition: color 0.2s;
+  /* Safari */
+  transition: color 0.2s; }
 
-.newspaper-date {
+.newspaper-subheading {
   font-size: 100%;
-  float: right; }
+  color: #757575;
+  font-size: 93.33333%;
+  margin-bottom: 1.5vh;
+  display: block; }
+
+.newspaper-expander {
+  position: absolute;
+  bottom: 1vh;
+  right: 1.5vh;
+  color: gray; }
 
 #date-range {
   text-align: center;

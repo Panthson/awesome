@@ -6,6 +6,10 @@ $newspaper_list_height: 92.75vh - 5vh;
 $search_bar_height: 4.75vh;
 $date_range_height: 5vh;
 
+$off_white_background: #F8F8F8;
+$g_blue: #2962ff;
+$off_grey : #E8E8E8;
+
 body{
   width: 100vw;
   height: 100vh;
@@ -38,7 +42,7 @@ body{
 }
 
 body{
-  background-color: #374143;
+  background-color: $off_grey;
   color: #fbfbfb;
 }
 
@@ -130,6 +134,18 @@ button{
   height: $search_bar_height;
   position: fixed;
   top: 0;
+
+  i{
+    width: 9%;
+  }
+
+  input{
+    width: 91%;
+  }
+
+  input:focus{
+    outline: none;
+  }
 }
 
 #search-bar{
@@ -148,28 +164,53 @@ button{
   overflow-y: auto;
   position: fixed;
   bottom: 0;
+  background-color: $off_grey;
+
+  list-style-type: none;
 }
 
+
+$newspaper_width_margin: 0vw;
+$newspaper_height_margin: 0.5vh;
 .newspaper{
   height: auto;
-  border: 1px solid black;
+  border: 1px solid grey;
+  border-radius: 1%;
   cursor: pointer;
-  border-left: 0;
-  border-right: 0;
+
+  color: black;
+  background: white;
+
+  margin-top: $newspaper_height_margin;
+  margin-bottom: $newspaper_height_margin;
+  margin-left: $newspaper_width_margin;
+  margin-right: $newspaper_width_margin;
 
   p{
     word-wrap:break-word;
   }
+
+  position: relative;
+  box-shadow: 0.5px 1px 0.5px grey;
+  transition: box-shadow 0.2s;
 }
 
 .newspaper:hover{
-  background-color: #7C7E88;
-  .newspaper-header{
-    text-decoration: underline;
+  .newspaper-expander{
+    color: black;
   }
-  .newspaper-date{
-    font-style: italic;
+  box-shadow: 1px 2px 1px grey;
+}
+
+.newspaper{
+  .newspaper-expander:hover{
+    color: $g_blue;
   }
+}
+
+.newspaper-header:hover{
+  border-bottom: 1px solid $g_blue;
+  color : $g_blue;
 }
 
 .disabledButton{
@@ -177,19 +218,36 @@ button{
   cursor: default;
 }
 
+$newspaper_header_size : 140%;
+$newspaper_subtile_size : ($newspaper_header_size * 2) / 3;
 .newspaper-header{
-  font-style: italic;
+  font-size: $newspaper_header_size;
+  font-weight: 600;
   display: inline-block;
   margin-top: 1.5vh;
-  margin-bottom: 0;
+  margin-bottom: 0.25vh;
+  border-bottom: 1px solid white;
+
+  -webkit-transition: color 0.2s; /* Safari */
+  transition: color 0.2s;
 }
 
-.newspaper-date{
+.newspaper-subheading{
   font-size: 100%;
-  float: right;
+  color: #757575;
+  font-size: $newspaper_subtile_size;
+  margin-bottom: 1.5vh;
+  display: block;
 }
 .newspaper-content{
 
+}
+
+.newspaper-expander{
+  position: absolute;
+  bottom: 1vh;
+  right: 1.5vh;
+  color: gray;
 }
 
 #date-range{
