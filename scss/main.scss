@@ -9,11 +9,7 @@ $date_range_height: 5vh;
 $off_white_background: #F8F8F8;
 $g_blue: #2962ff;
 $off_grey : #E8E8E8;
-
-body{
-  width: 100vw;
-  height: 100vh;
-}
+$dark_grey: #5C5E68;
 
 *{
   padding: 0;
@@ -42,6 +38,8 @@ body{
 }
 
 body{
+  width: 100vw;
+  height: 100vh;
   background-color: $off_grey;
   color: #fbfbfb;
 }
@@ -115,18 +113,27 @@ button{
   margin-left: 1vw;
 }
 
-#filter-button{
-  float: right;
-  background-color: #374143;
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  padding: 1px 6px;
-}
-
 .center{
   left: $h_padding + $histogram_width;
   width: $q_bar_width;
+}
+
+.searchNoFocus{
+  background-color: #e8e8e8;
+  box-shadow: none;
+  
+  #search-bar{
+    background: #e8e8e8;
+  }
+}
+
+.searchHasFocus{
+  background-color: white;
+
+  #search-bar{
+    background: white;
+  }
+  box-shadow: 0.5px 1px 0.5px grey;
 }
 
 #search-bar-wrapper{
@@ -143,21 +150,33 @@ button{
     width: 91%;
   }
 
-  input:focus{
-    outline: none;
-  }
+  transition: background-color 0.5s, box-shadow 0.5s;
+}
+
+#search-bar-wrapper:focus{
+}
+
+#searchIcon{
+  color: $dark_grey;
 }
 
 #search-bar{
   width: 97.5%;
   height: 90%;
-  border-radius: 3px;
-  border: 1px solid black;
+  border: 0;
   margin-top: .45%;
   color: black;
-  background-color: #e8e8e8;
   padding: 5px;
+
+  transition: background 0.5s;
 }
+
+#search-bar:focus{
+  outline: none;
+  background: white;
+}
+
+
 
 #newspaper-wrapper{
   height: $newspaper_list_height;
@@ -259,7 +278,7 @@ $newspaper_subtile_size : ($newspaper_header_size * 2) / 3;
   bottom: $newspaper_list_height;
 }
 
-$arrow_margin: 12vw;
+$arrow_margin: 10vw;
 #larrow{
   margin-left: $arrow_margin;
 }

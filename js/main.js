@@ -8,14 +8,24 @@ $(document).ready(function(){
     if(docIndex === docResults.length - 1)
       return;
     docIndex++;
-    refreshDocuments();
+    destroyDocumentPanel();
   });
 
   $("#larrow").click(function(){
     if(docIndex === 0)
       return;
     docIndex--;
-    refreshDocuments();
+    destroyDocumentPanel();
+  });
+
+  $("#search-bar").focusin(function(){
+    $(this).parent().removeClass('searchNoFocus');
+    $(this).parent().addClass('searchHasFocus');
+  });
+
+  $("#search-bar").focusout(function(){
+    $(this).parent().addClass('searchNoFocus');
+    $(this).parent().removeClass('searchHasFocus');
   });
 
   createChart();
@@ -161,26 +171,25 @@ function createChart(){
                   var clickedElementindex = item[0]["_index"];
                   //get specific label by index
                   var bar_last_clicked = histogramDataSet.labels[clickedElementindex];
-                  pushTerm(bar_last_clicked);
+
+                  getAssociatedDocuments(bar_last_clicked)
+                  .then(function(docs){
+                    pushTerm(bar_last_clicked, docs);
+                  }).catch(console.log);
               }
           }
       }
   });
 }
 
-var filterWords = [];
+var filterWords = {};
 
-function pushTerm(word){
-  var index = filterWords.indexOf(word);
-  if(index !== -1){
-    $("#filterWord" + word).remove();
-    filterWords.splice(index, 1);
-    getAssociatedDocuments(word)
-    .then(slowShowDocuments);
-
-    return true;
+function pushTerm(word, docs){
+  if(filterWords[word]){
+    $("#filterWord" + word).click();
+    return;
   }
-  filterWords.push(word);
+  filterWords[word] = docs;
 
   var wrapper = $("<div>").addClass('filterWordWrapper');
   var text = $("<span>").addClass('filterWordText').text(word);
@@ -189,18 +198,15 @@ function pushTerm(word){
   wrapper.attr('id', "filterWord" + word);
   wrapper.append(text);
   wrapper.append(closeButtton);
-  wrapper.click(function(){
-    var index = filterWords.indexOf(word);
-    filterWords.splice(index, 1);
-    $(this).remove();
-    getAssociatedDocuments(word)
-    .then(slowShowDocuments);
-  });
-  $("#histograph-filter-wrapper").append(wrapper);
 
-  getAssociatedDocuments(word)
-  .then(slowHideDocuments);
-  return;
+  wrapper.click(function(){
+    delete filterWords[word];
+    $(this).remove();
+    refreshDocuments();
+  });
+
+  $("#histograph-filter-wrapper").append(wrapper);
+  refreshDocuments();
 }
 
 function slowShowDocuments(docList){
@@ -360,10 +366,53 @@ function updateDocuments(documents){
     docResults[index].push(d);
   });
   docIndex = 0;
-  refreshDocuments();
+  destroyDocumentPanel();
 }
 
-function pushDocument(d){
+function isVisible(d){
+  if($.isEmptyObject(filterWords))
+    return true;
+
+  var clickedWords = Object.keys(filterWords);
+  var lists = clickedWords.map(function(val, i){
+    return filterWords[val].indexOf(d.docID) !== -1;
+  });//returns an array of whether each word had the doc id
+  //only need one to say its visible
+  return lists.reduce(function(current, next){ return current && next; });
+}
+
+function refreshDocuments(){
+  var vDocuments = docResults[docIndex];
+  $.each(vDocuments, function(i, d){
+    refreshDocument(d);
+  });
+}
+
+function refreshDocument(d){
+  var panel = $("#doc" + d.docID);
+  var existed = !!panel.length;
+  if(!existed)
+    panel = createDocument(d);
+
+  var visible = panel.is(':visible');
+  var supposedToBeVisible = isVisible(d);
+
+  if(existed){
+    if(visible && !supposedToBeVisible){
+      panel.slideUp();
+    }else if(!visible && supposedToBeVisible){
+      panel.slideDown();
+    }
+  }else{
+    if(visible && !supposedToBeVisible){
+      panel.hide();
+    }else if(!visible && supposedToBeVisible){
+      panel.show();
+    }
+  }
+}
+
+function createDocument(d){
   var li = $("<li>").addClass('newspaper');
   var title = $("<h3>").addClass('std-margin newspaper-header').text(d.title);
   var subHeading = $("<span>").addClass("std-margin newspaper-subheading");
@@ -380,16 +429,18 @@ function pushDocument(d){
   });
 
   li.click(function() {
-    var expander = li.find(".newspaper-expander");
-    console.log(expander);
+    var expander = $(this).find(".newspaper-expander");
     if(subtext.is(':visible')){
-      subtext.slideUp();
-      expander.removeClass('fa-angle-up');
-      expander.addClass('fa-angle-down');
-    }else
-      subtext.slideDown();
-      expander.removeClass('fa-angle-down');
-      expander.addClass('fa-angle-up');
+      subtext.slideUp(300, function(){
+        expander.removeClass('fa-angle-up');
+        expander.addClass('fa-angle-down');
+      });
+    }else{
+      subtext.slideDown(300, function(){
+        expander.removeClass('fa-angle-down');
+        expander.addClass('fa-angle-up');
+      });
+    }
   });
 
 
@@ -397,13 +448,15 @@ function pushDocument(d){
   li.append(subHeading);
   li.append(arrow);
   li.append(subtext);
+  li.hide();
 
   $("#newspaper-wrapper").append(li);
+
+  return li;
 }
 
-function refreshDocuments(visibleDocuments){
+function destroyDocumentPanel(){
   $("#newspaper-wrapper").empty();
-  var vDocuments = docResults[docIndex];
 
   var startMonth = docResults[docIndex][0].date;
   var endMonth = new Date(startMonth.getUTCFullYear(), startMonth.getMonth() + 1, 0);
@@ -411,10 +464,7 @@ function refreshDocuments(visibleDocuments){
   var text = (startMonth.getMonth() + 1) + "/" + startMonth.getDate() + " - " + (endMonth.getMonth() + 1) + "/" + endMonth.getDate();
   $("#dateRangeText").text(text);
 
-  $.each(vDocuments, function(i, d){
-    if(!visibleDocuments || visibleDocuments.indexOf(d.docID) !== -1)
-      pushDocument(d);
-  });
+  refreshDocuments();
 
   new SimpleBar($("#newspaper-wrapper")[0]);
 
