@@ -10,27 +10,36 @@
 </head>
 
 <body>
-  <div id="histogram-wrapper" class="std-margin std-border left chart-stage">
+  <div id="histogram-wrapper" class="std-margin std-border left chart-stag parent">
     <canvas id="histogram"></canvas>
+    <div id='histogramLoader' class='loader mediumLoader moduleLoader'></div>
   </div>
   <div id="histograph-filter-wrapper" class="std-margin std-border left"></div>
   <div id="search-bar-wrapper" class="std-margin std-border center searchNoFocus">
-    <i id='searchIcon' class='fas fa-search'></i><input id="search-bar" type="text" name="Search Bar" placeholder="Search Terms.."></input>
+    <i id='searchIcon' class='fas fa-search'></i>
+    <input id="search-bar" type="text" name="Search Bar" placeholder="Search Terms.."></input>
   </div>
+
+  
     
-  <div id="date-range" class="parent center module-background std-margin std-border">
+  <div id="date-range" class="parent center std-margin std-border">
     <button id='larrow' class="glyphicon glyphicon-triangle-left child disabledButton"></button>
     <span id='dateRangeText' class='child'></span>
     <button id='rarrow' class="glyphicon glyphicon-triangle-right child"></button>
   </div>
 
-  <ul id="newspaper-wrapper" class="std-margin center"></ul>    
+  <ul id="newspaper-wrapper" class="std-margin center"></ul>  
+  <div id='newspaperLoader' class='loader mediumLoader moduleLoader'></div>  
   
-  <div id="knowledge-graph-wrapper" class="std-margin std-border module-background right">
+  <ul id='predictedSearchList' class='center std-margin std-border'></ul>
+
+  <div id="knowledge-graph-wrapper" class="std-margin std-border right">
     <div class="graph-header">Knowledge Graph</div>
+    <div id='knowledgeLoader' class='loader slowLoader rightLoader moduleLoader'></div>
   </div>
-  <div id="topic-graph-wrapper" class="std-margin std-border module-background right">
+  <div id="topic-graph-wrapper" class="std-margin std-border right">
     <div class="graph-header">Topic Graph</div>
+    <div id='topicLoader' class='loader slowLoader rightLoader moduleLoader'></div>
   </div>
 
   <script src="https://unpkg.com/simplebar@latest/dist/simplebar.js"></script>
@@ -38,6 +47,7 @@
   <script src="js/jquery.js"></script>
   <script src="https://d3js.org/colorbrewer.v1.min.js"></script>
   <script src="js/chart.js"></script>
+  <script src="js/peg.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

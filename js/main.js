@@ -1,8 +1,10 @@
 const WORD_MAX = 10;
-const RAND_DOC_LENGTH = 100;
+const RAND_DOC_LENGTH = 1000;
 
 var docResults, docIndex = 0;
 $(document).ready(function(){
+  loadGrammar()
+  .then(setupInputBarFiringMethods)
 
   $("#rarrow").click(function(){
     if(docIndex === docResults.length - 1)
@@ -18,9 +20,37 @@ $(document).ready(function(){
     destroyDocumentPanel();
   });
 
-  $("#search-bar").focusin(function(){
+  $(document).on('click', function(){
+    $("#predictedSearchList").hide();
+  })
+
+  createChart();
+  getInitialData()
+  .then(loadData);
+});
+
+function loadGrammar(){
+  return new Promise((resolve, reject) => {
+    $.get( "data/grammar.pegjs", function( grammar ) {
+      parser = peg.generate(grammar);
+      resolve();
+    });
+  });
+}
+
+function setupInputBarFiringMethods(){
+  $("#search-bar").focusin(function(e){
     $(this).parent().removeClass('searchNoFocus');
     $(this).parent().addClass('searchHasFocus');
+    if($("#predictedSearchList").children().length)
+      $("#predictedSearchList").show();
+    e.stopPropagation();
+  });
+
+  $("#search-bar").click(function(e){
+    e.stopPropagation();
+    if($("#predictedSearchList").children().length)
+      $("#predictedSearchList").show();
   });
 
   $("#search-bar").focusout(function(){
@@ -28,10 +58,209 @@ $(document).ready(function(){
     $(this).parent().removeClass('searchHasFocus');
   });
 
-  createChart();
-  loadInitialData();
-  updateHistogram({b: 4, a: 3});
-});
+  $("#search-bar").keyup(function(e){
+    $(this).parent().removeClass('searchHasError');
+    if(e.which === 13)
+      onSearch($(this).val().trim());
+    else
+      autoComplete($(this).val().trim());
+  });
+}
+
+
+const SEARCHABLE_KEYS = ['title', 'text', 'newspaper'];
+
+function isAlphaNumeric(str) {
+  var code, i, len;
+
+  for (i = 0, len = str.length; i < len; i++) {
+    code = str.charCodeAt(i);
+    if (!(code > 47 && code < 58) && // numeric (0-9)
+        !(code > 64 && code < 91) && // upper alpha (A-Z)
+        !(code > 96 && code < 123)) { // lower alpha (a-z)
+      return false;
+    }
+  }
+  return true;
+};
+
+function simpleSearch(text){
+  text = text.replace(/,/g , "");
+  text = text.split(/\s+/);
+  if(!text)
+    return false;
+
+  if(!isAlphaNumeric(text.join('')))
+    return false;
+
+
+
+  text = SEARCHABLE_KEYS.map(function(kval, i){
+    //all text pieces must be in at least one of these values
+    var keyValue = text.map(function(vval, j){
+      return "(" + kval + ":" + vval + ")";
+    });
+
+    return "(" + keyValue.join(" AND ") + ")";
+  });
+
+  text = text.join(" OR ");
+  submitQuery(text);
+  $("#predictedSearchList").hide();
+
+  return true;
+}
+
+function onSearch(qString){
+  if(!qString)
+    return;
+
+  if(simpleSearch(qString))
+    return;
+
+  var _text, text = '';
+  try{
+    pObj = parser.parse(qString);
+    if(pObj['_text']){
+      _text = pObj['_text'];
+      delete pObj['_text'];
+    }
+    keys = Object.keys(pObj);
+    
+
+    for(var i = 0; i < keys.length; i++){
+      if(SEARCHABLE_KEYS.indexOf(keys[i]) === -1)
+          throw keys[i] + ' is not a searchable column';
+    }
+
+    for(var i = 0; i < keys.length; i++)
+      text += keys[i] + ":" + pObj[keys[i]] + " ";
+
+    var allSearchText = '';
+    if(_text){
+      $.each(SEARCHABLE_KEYS, function(i, key){
+        if(allSearchText)
+          allSearchText += "OR ";
+        allSearchText += key + ":" + _text + " ";
+        if(keys.indexOf(key) === -1)
+          keys.push(key);
+      });
+    }
+    
+    if(text && allSearchText){
+        text += ' (' + allSearchText + ')';
+    }else if(allSearchText){
+        text = allSearchText;
+    }
+  }catch(e){
+      console.log(e);
+      $("#search-bar").parent().addClass("searchHasError");
+      return;
+  }
+
+  $("#predictedSearchList").hide();
+  submitQuery(text);
+}
+
+var queryPending = false;
+var queryHash = {};
+function submitQuery(text){
+  queryPending = true;
+  $(".moduleLoader").show();
+  var p;
+  if(queryHash[text])
+    p = Promise.resolve(queryHash[text]);
+  else
+    p = Promise.resolve(getRandomData());
+  p.then(function(data){
+    queryHash[text] = data;
+
+    return new Promise(function(resolve, reject){
+      setTimeout(resolve, 3000);
+    })
+    .then(function(){
+      queryPending = false;
+      loadData(data);
+    });
+  });
+}
+
+var predictedWordsHash = {};
+function getPredictedWords(text){
+  if(predictedWordsHash[text])
+    return Promise.resolve(predictedWordsHash[text]);
+
+  var list = [];
+  var predicted_word, category, topics;
+  for(var i = 0; i < 10; i++){
+    predicted_word = text + gibberish(i);
+    category = gibberish(10);
+    topics = [gibberish(10), gibberish(10)]
+    list.push({
+      predicted_word: predicted_word,
+      category: category,
+      topics: topics
+    });
+  }
+
+  predictedWordsHash[text] = list;
+  return new Promise(function(resolve, reject){
+    setTimeout(resolve, 700);
+  }).then(function(){
+    return list;
+  })
+}
+
+function autoComplete(text){
+  if(!text)
+    return $("#predictedSearchList").hide();
+
+  text = text.split(/\s+/);
+  if(!text)
+    return $("#predictedSearchList").hide();
+
+  if(!isAlphaNumeric(text.join('')))
+    return $("#predictedSearchList").hide();
+  text = text.join('');
+
+  getPredictedWords(text)
+  .then(function(words){
+    $("#predictedSearchList").empty();
+    if($("#search-bar").is(":focus") && !queryPending)
+      $("#predictedSearchList").show();
+
+    var li, span;
+    $.each(words, function(i, val){
+      li = $("<li>");
+      
+      span = $("<span>");
+      span.text(val.predicted_word);
+      span.addClass('predicted_word');
+      li.append(span);
+
+      span = $("<span>");
+      span.text(val.category);
+      span.addClass('predicted_type');
+      li.append(span);
+
+      for(var i = 0; i < val.topics.length; i++){
+        span = $("<span>");
+        span.text(val.topics[i]);
+        span.addClass('predicted_topic');
+        li.append(span);
+      }    
+
+      li.click(function(e){
+        e.stopPropagation();
+        $("#search-bar").val(val.predicted_word);
+        $("#predictedSearchList").hide();
+        onSearch(val.predicted_word);
+      });
+
+      li.appendTo($("#predictedSearchList"));
+    });
+  }).catch(console.log);
+}
 
 function createiFrame(url){
   var frameWrapper = $("<div id='frame-wrapper'></div>")
@@ -50,6 +279,7 @@ function createiFrame(url){
 
   var loader = $("<div></div>")
     .addClass("loader")
+    .addClass("frameLoader")
     .appendTo(loaderWrapper)
 
   var frame = $("<iframe id='frame' src=" + url + "></iframe>")
@@ -230,6 +460,7 @@ function slowHideDocuments(docList){
 }
 
 function updateHistogram(words){
+  $("#histogramLoader").hide();
   var labels = Object.keys(words).sort(function(a, b){
     return words[b] - words[a];
   });
@@ -243,15 +474,18 @@ function updateHistogram(words){
 }
 
 function gibberish(text_len){
-  if(!text_len)
-    text_len = 40;
-    var text = "";
-    var possible = "ABCD EFGHIJ KLMNOPQR STUVWXYZ abcdefghij klmnopqr stuvwxyz abcdefghij klmnopqr stuvwxyz ";
+  var text = "";
 
-    for(var i=0; i < text_len; i++)
-        text += possible.charAt(Math.floor(Math.random() * possible.length));
+  var possible;
+  for(var i = 0; i < text_len; i++){
+    if(i === text_len - 1)
+      possible = "abcdefghijklmnopqrstuvwxyz";
+    else
+      possible = "ABCD EFGHIJ KLMNOPQR STUVWXYZ abcdefghij klmnopqr stuvwxyz abcdefghij klmnopqr stuvwxyz ";
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+  }
 
-    return text;
+  return text;
 }
 
 function getRandomInt(max) {
@@ -284,6 +518,10 @@ function getRandomDocument(){
 }
 
 function getInitialData(){
+  return Promise.resolve(getRandomData());
+}
+
+function getRandomData(){
   var initData = {
     histogram : {
       alfa : 10,
@@ -301,8 +539,7 @@ function getInitialData(){
   for(var i = 0; i < RAND_DOC_LENGTH; i++){
     initData.documents.push(getRandomDocument());
   }
-
-  return Promise.resolve(initData);
+  return initData;
 }
 
 var wordHash = [];
@@ -324,12 +561,9 @@ function getAssociatedDocuments(word){
   return Promise.resolve(wordHash[word]);
 }
 
-function loadInitialData(){
-  getInitialData()
-  .then(function(initialData){
-    updateHistogram(initialData.histogram);
-    updateDocuments(initialData.documents);
-  }).catch(console.log);
+function loadData(data){
+  updateHistogram(data.histogram);
+  updateDocuments(data.documents);
 }
 
 function daysInMonth (month, year) {
@@ -350,6 +584,7 @@ function monthFrom(d, months){
 }
 
 function updateDocuments(documents){
+  $("#newspaperLoader").hide();
   documents.sort(function(a, b){
     return a.date - b.date;
   });

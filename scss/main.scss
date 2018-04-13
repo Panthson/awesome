@@ -10,6 +10,9 @@ $off_white_background: #F8F8F8;
 $g_blue: #2962ff;
 $off_grey : #E8E8E8;
 $dark_grey: #5C5E68;
+$searchErrorColor: #E80000;
+
+$module_background: $off_grey;
 
 *{
   padding: 0;
@@ -33,14 +36,10 @@ $dark_grey: #5C5E68;
   border-radius: 3px;
 }
 
-.module-background{
-  background-color: #5C5E68;
-}
-
 body{
   width: 100vw;
   height: 100vh;
-  background-color: $off_grey;
+  background-color: #5C5E68;
   color: #fbfbfb;
 }
 
@@ -55,14 +54,31 @@ button{
   width: $histogram_width;
 }
 
+$histogram_height: 78.5vh;
+
 #histogram-wrapper{
-  height: 78.5vh;
+  height: $histogram_height;
   position: relative;
   display: inline-block;
+  background-color: $module_background;
 }
 
-#histogram{
+$spinner_width: 5vw;
+#histogramLoader{
+  width: $spinner_width;
+  height: $spinner_width;
+  position: fixed;
+  z-index: 5;
+  top: calc((#{$histogram_height} / 2) - #{$spinner_width} / 2);
+  left: calc((#{$histogram_width} / 2) - #{$spinner_width} / 2);
+}
 
+.mediumLoader{
+  animation: spin 3.25s linear infinite;
+}
+
+.slowLoader{
+  animation: spin 11.3s linear infinite;
 }
 
 #histograph-filter-wrapper{
@@ -70,6 +86,7 @@ button{
   position: fixed;
   bottom: 0;
   padding: 0.3%;
+  background-color: $module_background;
 }
 
 .filterWordWrapper{
@@ -136,6 +153,13 @@ button{
   box-shadow: 0.5px 1px 0.5px grey;
 }
 
+.searchHasError{
+  border-color: $searchErrorColor;
+  #searchIcon{
+    color: $searchErrorColor;
+  }
+}
+
 #search-bar-wrapper{
   text-align: center;
   height: $search_bar_height;
@@ -176,14 +200,67 @@ button{
   background: white;
 }
 
+#predictedSearchList{
+  position: fixed;
+  padding-top: 0.5vh;
+  max-height: 16vh;
+  top: 4.5vh;
+  background: white;
+  display: none;
 
+  list-style-type: none;
+  overflow-y: auto;
+
+  color: black;
+
+  li{
+    height: 3vh;
+    cursor: pointer;
+  }
+
+  li:hover{
+    background: $off_white_background;
+  }
+
+  div{
+    float: right;
+    height: 100%;
+  }
+}
+
+.predicted_word{
+  font-weight: bold;
+  padding-left: 1vw;
+}
+
+.predicted_type{
+  color: purple;
+  padding-right: 1vw;
+  float: right;
+  clear: both;
+}
+
+.predicted_topic{
+  float: right;
+  padding-right: 1vw;
+}
+
+#newspaperLoader{
+  position: fixed;
+  z-index: 5;
+
+  left: calc((#{$q_bar_width} / 2) + #{$histogram_width} - (#{$spinner_width} / 2));
+  top: calc(50vh - #{$spinner_width} / 2);
+
+  border: 16px solid $off_grey; /* Light grey */
+  border-top: 16px solid #dd3333;
+}
 
 #newspaper-wrapper{
   height: $newspaper_list_height;
   overflow-y: auto;
   position: fixed;
   bottom: 0;
-  background-color: $off_grey;
 
   list-style-type: none;
 }
@@ -276,6 +353,9 @@ $newspaper_subtile_size : ($newspaper_header_size * 2) / 3;
   font-size: 2.5vh;
   position: fixed;
   bottom: $newspaper_list_height;
+  background-color: $module_background;
+
+  color: black;
 }
 
 $arrow_margin: 10vw;
@@ -297,26 +377,45 @@ $arrow_margin: 10vw;
 }
 
 /* RIGHT */
+$right_width : 38vw;
+$right_module_height: 48vh;
 .right{
-  width: 38vw;
+  width: $right_width;
   position: fixed;
   right: 0;
 }
 
 #knowledge-graph-wrapper{
-  height: 48vh;
+  height: $right_module_height;
   top: 0;
+  background-color: $module_background;
+}
+
+.rightLoader{
+  position: fixed;
+  right: $right_width / 2 - $spinner_width / 2;
+}
+
+$right_loader_placement: calc(#{$right_module_height} / 2 - #{$spinner_width} / 2);
+#knowledgeLoader{
+  top: $right_loader_placement;
+}
+
+#topicLoader{
+  bottom: $right_loader_placement;
 }
 
 
 #topic-graph-wrapper{
-  height: 48vh;
+  height: $right_module_height;
   bottom: 0;
+  background-color: $module_background;
 }
 
 .graph-header{
   text-align: center;
   border-bottom: 1px solid black;
+  color: black;
 }
 
 /*iFrame*/
@@ -327,6 +426,8 @@ $arrow_margin: 10vw;
   height: 100vh;
   width: 100vw;
   top: 0;
+
+  cursor: pointer;
 
   animation-name: fadeIn;
   animation-duration: .75s;
@@ -380,13 +481,16 @@ $arrow_margin: 10vw;
 }
 
 .loader {
-  border: 16px solid #e8e8e8; /* Light grey */
-  border-top: 16px solid #dd3333; /* Blue */
+  border: 16px solid white; /* Light grey */
+  border-top: 16px solid #dd3333; /* RED */
   border-radius: 50%;
   width: 10vh;
   height: 10vh;
-  animation: spin 1.25s linear infinite;
   margin: auto;
+}
+
+.frameLoader{
+  animation: spin 1.25s linear infinite;
 }
 
 @keyframes spin {

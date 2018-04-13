@@ -16,13 +16,10 @@
   border: 1px solid black;
   border-radius: 3px; }
 
-.module-background {
-  background-color: #5C5E68; }
-
 body {
   width: 100vw;
   height: 100vh;
-  background-color: #E8E8E8;
+  background-color: #5C5E68;
   color: #fbfbfb; }
 
 button {
@@ -37,13 +34,29 @@ button {
 #histogram-wrapper {
   height: 78.5vh;
   position: relative;
-  display: inline-block; }
+  display: inline-block;
+  background-color: #E8E8E8; }
+
+#histogramLoader {
+  width: 5vw;
+  height: 5vw;
+  position: fixed;
+  z-index: 5;
+  top: calc((78.5vh / 2) - 5vw / 2);
+  left: calc((20vw / 2) - 5vw / 2); }
+
+.mediumLoader {
+  animation: spin 3.25s linear infinite; }
+
+.slowLoader {
+  animation: spin 11.3s linear infinite; }
 
 #histograph-filter-wrapper {
   height: 18.5vh;
   position: fixed;
   bottom: 0;
-  padding: 0.3%; }
+  padding: 0.3%;
+  background-color: #E8E8E8; }
 
 .filterWordWrapper {
   display: inline;
@@ -94,6 +107,11 @@ button {
   .searchHasFocus #search-bar {
     background: white; }
 
+.searchHasError {
+  border-color: #E80000; }
+  .searchHasError #searchIcon {
+    color: #E80000; }
+
 #search-bar-wrapper {
   text-align: center;
   height: 4.75vh;
@@ -121,12 +139,53 @@ button {
   outline: none;
   background: white; }
 
+#predictedSearchList {
+  position: fixed;
+  padding-top: 0.5vh;
+  max-height: 16vh;
+  top: 4.5vh;
+  background: white;
+  display: none;
+  list-style-type: none;
+  overflow-y: auto;
+  color: black; }
+  #predictedSearchList li {
+    height: 3vh;
+    cursor: pointer; }
+  #predictedSearchList li:hover {
+    background: #F8F8F8; }
+  #predictedSearchList div {
+    float: right;
+    height: 100%; }
+
+.predicted_word {
+  font-weight: bold;
+  padding-left: 1vw; }
+
+.predicted_type {
+  color: purple;
+  padding-right: 1vw;
+  float: right;
+  clear: both; }
+
+.predicted_topic {
+  float: right;
+  padding-right: 1vw; }
+
+#newspaperLoader {
+  position: fixed;
+  z-index: 5;
+  left: calc((38vw / 2) + 20vw - (5vw / 2));
+  top: calc(50vh - 5vw / 2);
+  border: 16px solid #E8E8E8;
+  /* Light grey */
+  border-top: 16px solid #dd3333; }
+
 #newspaper-wrapper {
   height: 87.75vh;
   overflow-y: auto;
   position: fixed;
   bottom: 0;
-  background-color: #E8E8E8;
   list-style-type: none; }
 
 .newspaper {
@@ -192,7 +251,9 @@ button {
   height: 5vh;
   font-size: 2.5vh;
   position: fixed;
-  bottom: 87.75vh; }
+  bottom: 87.75vh;
+  background-color: #E8E8E8;
+  color: black; }
 
 #larrow {
   margin-left: 10vw; }
@@ -215,15 +276,28 @@ button {
 
 #knowledge-graph-wrapper {
   height: 48vh;
-  top: 0; }
+  top: 0;
+  background-color: #E8E8E8; }
+
+.rightLoader {
+  position: fixed;
+  right: 16.5vw; }
+
+#knowledgeLoader {
+  top: calc(48vh / 2 - 5vw / 2); }
+
+#topicLoader {
+  bottom: calc(48vh / 2 - 5vw / 2); }
 
 #topic-graph-wrapper {
   height: 48vh;
-  bottom: 0; }
+  bottom: 0;
+  background-color: #E8E8E8; }
 
 .graph-header {
   text-align: center;
-  border-bottom: 1px solid black; }
+  border-bottom: 1px solid black;
+  color: black; }
 
 /*iFrame*/
 #frame-wrapper {
@@ -233,6 +307,7 @@ button {
   height: 100vh;
   width: 100vw;
   top: 0;
+  cursor: pointer;
   animation-name: fadeIn;
   animation-duration: .75s; }
 
@@ -271,15 +346,17 @@ button {
   vertical-align: middle; }
 
 .loader {
-  border: 16px solid #e8e8e8;
+  border: 16px solid white;
   /* Light grey */
   border-top: 16px solid #dd3333;
-  /* Blue */
+  /* RED */
   border-radius: 50%;
   width: 10vh;
   height: 10vh;
-  animation: spin 1.25s linear infinite;
   margin: auto; }
+
+.frameLoader {
+  animation: spin 1.25s linear infinite; }
 
 @keyframes spin {
   0% {
