@@ -7,18 +7,32 @@
 
   <link rel="stylesheet" type="text/css" href="css/main.css">
   <link rel="stylesheet" href="https://unpkg.com/simplebar@latest/dist/simplebar.css" />
+  <link rel="stylesheet" type="text/css" href="css/neo4jd3.min.css">
 </head>
 
 <body>
+  <div id="nav-bar">
+    <i id='awesomeLogo' class='fas fa-laptop'></i>
+    <span id='awesomeText'>AWESOME</span>
+    <div id="search-bar-wrapper" class="std-margin center searchNoFocus">
+      <i id='searchIcon' class='fas fa-search'></i>
+      <input id="search-bar" type="text" name="Search Bar" placeholder="Search..."></input>
+    </div>
+    <!--<span id="prevMonth">December</span>-->
+    <span id="currMonth" class='center'>January 2018</span>
+    <!--<span id="nextMonth">February</span>-->
+
+    <i id='saveIcon' class='fas fa-save navButton'></i>
+    <i id='settingsIcon' class='fas fa-cog navButton'></i>
+  </div>
+
+
   <div id="histogram-wrapper" class="std-margin std-border left chart-stag parent">
     <canvas id="histogram"></canvas>
     <div id='histogramLoader' class='loader mediumLoader moduleLoader'></div>
   </div>
   <div id="histograph-filter-wrapper" class="std-margin std-border left"></div>
-  <div id="search-bar-wrapper" class="std-margin std-border center searchNoFocus">
-    <i id='searchIcon' class='fas fa-search'></i>
-    <input id="search-bar" type="text" name="Search Bar" placeholder="Search Terms.."></input>
-  </div>
+  
 
   
     
@@ -40,11 +54,15 @@
   <div id="topic-graph-wrapper" class="std-margin std-border right">
     <div class="graph-header">Topic Graph</div>
     <div id='topicLoader' class='loader slowLoader rightLoader moduleLoader'></div>
+    <div id="topic-graph"></div>
   </div>
+
 
   <script src="https://unpkg.com/simplebar@latest/dist/simplebar.js"></script>
   <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
   <script src="js/jquery.js"></script>
+  <script src="js/d3.min.js"></script>
+  <script src="js/neo4jd3.js"></script>
   <script src="https://d3js.org/colorbrewer.v1.min.js"></script>
   <script src="js/chart.js"></script>
   <script src="js/peg.js"></script>

@@ -13,13 +13,13 @@
   margin-left: 1vw; }
 
 .std-border {
-  border: 1px solid black;
+  border: 1px solid #5C5E68;
   border-radius: 3px; }
 
 body {
   width: 100vw;
   height: 100vh;
-  background-color: #5C5E68;
+  background-color: #E0E0E0;
   color: #fbfbfb; }
 
 button {
@@ -27,22 +27,45 @@ button {
   border: transparent;
   border-radius: 3px; }
 
+#nav-bar {
+  width: 100vw;
+  height: 12vh;
+  background-color: #182B49; }
+
+#awesomeLogo, #awesomeText {
+  color: #F8F8F8;
+  font-size: 170%;
+  margin-top: 1.5vw;
+  padding-left: 1vw; }
+
+.navButton {
+  position: fixed;
+  top: 1.5vw;
+  font-size: 170%; }
+
+#settingsIcon {
+  right: 2vw; }
+
+#saveIcon {
+  right: 7vw; }
+
 /* LEFT */
 .left {
   width: 20vw; }
 
 #histogram-wrapper {
-  height: 78.5vh;
+  height: 66.5vh;
   position: relative;
   display: inline-block;
-  background-color: #E8E8E8; }
+  background-color: #F8F8F8;
+  padding-right: 2.7vw; }
 
 #histogramLoader {
   width: 5vw;
   height: 5vw;
   position: fixed;
   z-index: 5;
-  top: calc((78.5vh / 2) - 5vw / 2);
+  top: calc((66.5vh / 2) - 5vw / 2);
   left: calc((20vw / 2) - 5vw / 2); }
 
 .mediumLoader {
@@ -56,7 +79,7 @@ button {
   position: fixed;
   bottom: 0;
   padding: 0.3%;
-  background-color: #E8E8E8; }
+  background-color: #F8F8F8; }
 
 .filterWordWrapper {
   display: inline;
@@ -103,7 +126,7 @@ button {
 
 .searchHasFocus {
   background-color: white;
-  box-shadow: 0.5px 1px 0.5px grey; }
+  box-shadow: 0.5px 1px 0.5px #E8E8E8; }
   .searchHasFocus #search-bar {
     background: white; }
 
@@ -114,14 +137,22 @@ button {
 
 #search-bar-wrapper {
   text-align: center;
-  height: 4.75vh;
+  height: 6vh;
   position: fixed;
   top: 0;
+  border-radius: 1% / 8%;
   transition: background-color 0.5s, box-shadow 0.5s; }
   #search-bar-wrapper i {
     width: 9%; }
   #search-bar-wrapper input {
     width: 91%; }
+
+#currMonth {
+  position: fixed;
+  text-align: center;
+  color: #00C6D7;
+  top: 8vh;
+  font-size: 80%; }
 
 #searchIcon {
   color: #5C5E68; }
@@ -146,6 +177,7 @@ button {
   top: 4.5vh;
   background: white;
   display: none;
+  font-size: 80%;
   list-style-type: none;
   overflow-y: auto;
   color: black; }
@@ -182,7 +214,7 @@ button {
   border-top: 16px solid #dd3333; }
 
 #newspaper-wrapper {
-  height: 87.75vh;
+  height: 86vh;
   overflow-y: auto;
   position: fixed;
   bottom: 0;
@@ -191,7 +223,7 @@ button {
 .newspaper {
   height: auto;
   border: 1px solid grey;
-  border-radius: 1%;
+  border-radius: 1% / 8%;
   cursor: pointer;
   color: black;
   background: white;
@@ -203,12 +235,19 @@ button {
   box-shadow: 0.5px 1px 0.5px grey;
   transition: box-shadow 0.2s; }
   .newspaper p {
-    word-wrap: break-word; }
+    word-wrap: break-word;
+    font-size: 80%;
+    line-height: 1.5; }
+
+.newspaper.expanded {
+  border-radius: 1% / 3%; }
 
 .newspaper:hover {
   box-shadow: 1px 2px 1px grey; }
   .newspaper:hover .newspaper-expander {
     color: black; }
+  .newspaper:hover .newspaper-header {
+    color: #2962ff; }
 
 .newspaper .newspaper-expander:hover {
   color: #2962ff; }
@@ -222,10 +261,10 @@ button {
   cursor: default; }
 
 .newspaper-header {
-  font-size: 140%;
+  font-size: 90%;
   font-weight: 600;
   display: inline-block;
-  margin-top: 1.5vh;
+  margin-top: 1.8vh;
   margin-bottom: 0.25vh;
   border-bottom: 1px solid white;
   -webkit-transition: color 0.2s;
@@ -235,7 +274,7 @@ button {
 .newspaper-subheading {
   font-size: 100%;
   color: #757575;
-  font-size: 93.33333%;
+  font-size: 60%;
   margin-bottom: 1.5vh;
   display: block; }
 
@@ -246,13 +285,14 @@ button {
   color: gray; }
 
 #date-range {
+  display: none;
   text-align: center;
   border-bottom: 1px solid black;
   height: 5vh;
   font-size: 2.5vh;
   position: fixed;
-  bottom: 87.75vh;
-  background-color: #E8E8E8;
+  bottom: 86vh;
+  background-color: #F8F8F8;
   color: black; }
 
 #larrow {
@@ -275,29 +315,39 @@ button {
   right: 0; }
 
 #knowledge-graph-wrapper {
-  height: 48vh;
-  top: 0;
-  background-color: #E8E8E8; }
+  display: none;
+  height: 42vh;
+  top: 12vh;
+  background-color: #F8F8F8; }
 
 .rightLoader {
   position: fixed;
   right: 16.5vw; }
 
 #knowledgeLoader {
-  top: calc(48vh / 2 - 5vw / 2); }
+  top: calc(42vh / 2 - 5vw / 2 + 12vh / 2); }
 
 #topicLoader {
-  bottom: calc(48vh / 2 - 5vw / 2); }
+  bottom: calc(42vh / 2 - 5vw / 2 + 12vh / 2); }
 
 #topic-graph-wrapper {
-  height: 48vh;
+  height: 84vh;
   bottom: 0;
-  background-color: #E8E8E8; }
+  background-color: #F8F8F8; }
+  #topic-graph-wrapper .graph-header {
+    border: none; }
+
+#topic-graph {
+  width: 38vw;
+  height: 39vh;
+  height: 84vh; }
 
 .graph-header {
   text-align: center;
   border-bottom: 1px solid black;
-  color: black; }
+  color: black;
+  height: 3vh;
+  font-size: 70%; }
 
 /*iFrame*/
 #frame-wrapper {
