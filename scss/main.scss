@@ -1,10 +1,13 @@
 
 $h_padding: 1vw;
+$v_padding: 1vh;
 $histogram_width: 20vw;
+$graph_header_height: 9vh;
 $q_bar_width: 38vw;
 $search_bar_height: 6vh;
-$top_bar_height: 12vh;
-$newspaper_list_height: 98vh - $top_bar_height;
+$top_bar_height: 10vh;
+$newspaper_column_height: 100vh - (2 * $v_padding) - $top_bar_height;
+$newspaper_list_height: $newspaper_column_height - $graph_header_height - 2vh;
 $date_range_height: 5vh;
 
 $off_white_background: #F8F8F8;
@@ -12,6 +15,8 @@ $g_blue: #2962ff;
 $off_grey : #E8E8E8;
 $dark_grey: #5C5E68;
 $searchErrorColor: #E80000;
+$accentColor: #00C6D7;
+$UCSD_DARK_BLUE : #182B49;
 
 $module_background: $off_white_background;
 
@@ -26,8 +31,8 @@ $module_background: $off_white_background;
 }
 
 .std-margin{
-  margin-top: 1vh;
-  margin-bottom: 1vh;
+  margin-top: $v_padding;
+  margin-bottom: $v_padding;
   margin-right: $h_padding;
   margin-left: $h_padding;
 }
@@ -42,6 +47,9 @@ body{
   height: 100vh;
   background-color: #E0E0E0;
   color: #fbfbfb;
+  *{
+    font-family : "Helvetica";
+  }
 }
 
 button{
@@ -53,23 +61,43 @@ button{
 #nav-bar{
   width: 100vw;
   height: $top_bar_height;
-  background-color: #182B49;
+  background-color: $UCSD_DARK_BLUE;
 }
 
 #awesomeLogo, #awesomeText{
   color: $off_white_background;
   font-size: 170%;
-  margin-top: 1.5vw; 
   padding-left: 1vw;
 }
 
+#awesomeLogo, .navButton{
+  height: inherit;
+}
+
 #awesomeText{
+
+}
+
+.nav-parent{
+  height: $top_bar_height;
+}
+
+#navButtons{
+  position: fixed;
+  top: 0;
+  width: 100vw;
 }
 
 .navButton{
-  position: fixed;
-  top: 1.5vw;
-  font-size: 170%;
+  font-size: 130%;
+  float: right;
+  margin-left: 1vw;
+  margin-right: 1vw;
+}
+
+.navButton:hover{
+  color: $accentColor;
+  cursor: pointer;
 }
 
 #settingsIcon{
@@ -86,7 +114,6 @@ button{
 }
 
 $histogram_height: 78.5vh - $top_bar_height;
-
 #histogram-wrapper{
   //margin-top: $top_bar_height;
   height: $histogram_height;
@@ -94,6 +121,12 @@ $histogram_height: 78.5vh - $top_bar_height;
   display: inline-block;
   background-color: $module_background;
   padding-right: 2.7vw;
+  padding-top: $graph_header_height + 1vh;
+
+  .header-wrapper{
+    position: absolute;
+    top: 0;
+  }
 }
 
 $spinner_width: 5vw;
@@ -129,7 +162,7 @@ $spinner_width: 5vw;
   margin-left: 1%;
   margin-top: 2%;
   margin-bottom: 2%;
-  padding-top: 1%;
+  //padding-top: 1%; //adjust in css
   padding-bottom: 1%;
   padding-left: 5%;
   padding-right: 4%;
@@ -156,11 +189,13 @@ $spinner_width: 5vw;
   padding-right: 5%;
   padding-left: 5%;
   display: inline-block;
+  font-size: 80%;
 }
 
 .wordClose{
   display: inline;
   margin-left: 1vw;
+  font-size: 80%;
 }
 
 .center{
@@ -197,7 +232,7 @@ $spinner_width: 5vw;
   text-align: center;
   height: $search_bar_height;
   position: fixed;
-  top: 0;
+  top: ($top_bar_height - $search_bar_height) / 2 - $v_padding;
   border-radius: 1% / 8%;
 
   i{
@@ -300,6 +335,25 @@ $spinner_width: 5vw;
   border-top: 16px solid #dd3333;
 }
 
+#timeSlider{
+  left: $h_padding + $histogram_width;
+  width: $q_bar_width;
+  height: $graph_header_height;
+  //bottom: $newspaper_list_height + 9.5vh;
+  top: $top_bar_height + 3vh;;
+  z-index: 100;
+  position: fixed;
+
+  g.y {
+    display: none;
+  }
+}
+
+#newspaperlist-header{
+  position: fixed;
+  top: $top_bar_height;
+}
+
 #newspaper-wrapper{
   height: $newspaper_list_height;
   overflow-y: auto;
@@ -321,14 +375,13 @@ $newspaper_height_margin: 0.5vh;
   color: black;
   background: white;
 
-  margin-top: $newspaper_height_margin;
-  margin-bottom: $newspaper_height_margin;
+  margin-bottom: $newspaper_height_margin * 2;
   margin-left: $newspaper_width_margin;
   margin-right: $newspaper_width_margin;
 
   p{
     word-wrap:break-word;
-    font-size: 80%;
+    font-size: 70%;
     line-height: 1.5;
   }
 
@@ -406,7 +459,7 @@ $newspaper_subtile_size : ($newspaper_header_size * 2) / 3;
   height: $date_range_height;
   font-size: 2.5vh;
   position: fixed;
-  bottom: $newspaper_list_height;
+  bottom: $newspaper_column_height;
   background-color: $module_background;
 
   color: black;
@@ -432,7 +485,7 @@ $arrow_margin: 10vw;
 
 /* RIGHT */
 $right_width : 38vw;
-$right_module_height: 48vh - ($top_bar_height / 2);
+$right_module_height: 100vh - $top_bar_height - (2 * $v_padding);
 .right{
   width: $right_width;
   position: fixed;
@@ -462,7 +515,7 @@ $right_loader_placement: calc(#{$right_module_height} / 2 - #{$spinner_width} / 
 
 
 #topic-graph-wrapper{
-  height: $right_module_height * 2;
+  height: $right_module_height;
   bottom: 0;
   background-color: $module_background;
   .graph-header{
@@ -471,17 +524,27 @@ $right_loader_placement: calc(#{$right_module_height} / 2 - #{$spinner_width} / 
 }
 
 #topic-graph{
-  width: $right_width;
-  height: $right_module_height - 3vh;
-  height: $right_module_height * 2;
+  width: $right_width - 2vw;
+  margin-left: 1vw;
+  height: $right_module_height - $graph_header_height - (4 * $v_padding);
+  padding-bottom: 0.5vh;
+  position: fixed;
+  bottom: $v_padding * 2;
 }
 
 .graph-header{
-  text-align: center;
-  border-bottom: 1px solid black;
   color: black;
-  height: 3vh;
+  font-size: 90%;
+  padding-top: 2.1vh;
+  padding-left: 1.25vw;
+  font-weight: 300;
+}
+
+.graph-subheader{
   font-size: 70%;
+  color: $dark_grey;
+  font-weight: 400;
+  padding-left: 1.25vw;
 }
 
 /*iFrame*/
@@ -595,4 +658,20 @@ $right_loader_placement: calc(#{$right_module_height} / 2 - #{$spinner_width} / 
 @keyframes swoosh {
   from{left: -15vw;}
   to{left: 0vw;}
+}
+
+
+
+@media (min-device-width : 1300px){
+  .newspaper-subheading{
+    margin-top: 0.5vh;
+  }
+
+  .navButton{
+    font-size: 170%;
+  }
+
+  #awesomeLogo{
+    font-size: 220%;
+  }
 }

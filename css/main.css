@@ -21,6 +21,8 @@ body {
   height: 100vh;
   background-color: #E0E0E0;
   color: #fbfbfb; }
+  body * {
+    font-family: "Helvetica"; }
 
 button {
   background-color: transparent;
@@ -29,19 +31,34 @@ button {
 
 #nav-bar {
   width: 100vw;
-  height: 12vh;
+  height: 10vh;
   background-color: #182B49; }
 
 #awesomeLogo, #awesomeText {
   color: #F8F8F8;
   font-size: 170%;
-  margin-top: 1.5vw;
   padding-left: 1vw; }
 
-.navButton {
+#awesomeLogo, .navButton {
+  height: inherit; }
+
+.nav-parent {
+  height: 10vh; }
+
+#navButtons {
   position: fixed;
-  top: 1.5vw;
-  font-size: 170%; }
+  top: 0;
+  width: 100vw; }
+
+.navButton {
+  font-size: 130%;
+  float: right;
+  margin-left: 1vw;
+  margin-right: 1vw; }
+
+.navButton:hover {
+  color: #00C6D7;
+  cursor: pointer; }
 
 #settingsIcon {
   right: 2vw; }
@@ -54,18 +71,22 @@ button {
   width: 20vw; }
 
 #histogram-wrapper {
-  height: 66.5vh;
+  height: 68.5vh;
   position: relative;
   display: inline-block;
   background-color: #F8F8F8;
-  padding-right: 2.7vw; }
+  padding-right: 2.7vw;
+  padding-top: 10vh; }
+  #histogram-wrapper .header-wrapper {
+    position: absolute;
+    top: 0; }
 
 #histogramLoader {
   width: 5vw;
   height: 5vw;
   position: fixed;
   z-index: 5;
-  top: calc((66.5vh / 2) - 5vw / 2);
+  top: calc((68.5vh / 2) - 5vw / 2);
   left: calc((20vw / 2) - 5vw / 2); }
 
 .mediumLoader {
@@ -88,7 +109,6 @@ button {
   margin-left: 1%;
   margin-top: 2%;
   margin-bottom: 2%;
-  padding-top: 1%;
   padding-bottom: 1%;
   padding-left: 5%;
   padding-right: 4%;
@@ -108,11 +128,13 @@ button {
 .filterWordText {
   padding-right: 5%;
   padding-left: 5%;
-  display: inline-block; }
+  display: inline-block;
+  font-size: 80%; }
 
 .wordClose {
   display: inline;
-  margin-left: 1vw; }
+  margin-left: 1vw;
+  font-size: 80%; }
 
 .center {
   left: 21vw;
@@ -139,7 +161,7 @@ button {
   text-align: center;
   height: 6vh;
   position: fixed;
-  top: 0;
+  top: 1vh;
   border-radius: 1% / 8%;
   transition: background-color 0.5s, box-shadow 0.5s; }
   #search-bar-wrapper i {
@@ -213,8 +235,22 @@ button {
   /* Light grey */
   border-top: 16px solid #dd3333; }
 
+#timeSlider {
+  left: 21vw;
+  width: 38vw;
+  height: 9vh;
+  top: 13vh;
+  z-index: 100;
+  position: fixed; }
+  #timeSlider g.y {
+    display: none; }
+
+#newspaperlist-header {
+  position: fixed;
+  top: 10vh; }
+
 #newspaper-wrapper {
-  height: 86vh;
+  height: 77vh;
   overflow-y: auto;
   position: fixed;
   bottom: 0;
@@ -227,8 +263,7 @@ button {
   cursor: pointer;
   color: black;
   background: white;
-  margin-top: 0.5vh;
-  margin-bottom: 0.5vh;
+  margin-bottom: 1vh;
   margin-left: 0vw;
   margin-right: 0vw;
   position: relative;
@@ -236,7 +271,7 @@ button {
   transition: box-shadow 0.2s; }
   .newspaper p {
     word-wrap: break-word;
-    font-size: 80%;
+    font-size: 70%;
     line-height: 1.5; }
 
 .newspaper.expanded {
@@ -291,7 +326,7 @@ button {
   height: 5vh;
   font-size: 2.5vh;
   position: fixed;
-  bottom: 86vh;
+  bottom: 88vh;
   background-color: #F8F8F8;
   color: black; }
 
@@ -316,8 +351,8 @@ button {
 
 #knowledge-graph-wrapper {
   display: none;
-  height: 42vh;
-  top: 12vh;
+  height: 88vh;
+  top: 10vh;
   background-color: #F8F8F8; }
 
 .rightLoader {
@@ -325,29 +360,38 @@ button {
   right: 16.5vw; }
 
 #knowledgeLoader {
-  top: calc(42vh / 2 - 5vw / 2 + 12vh / 2); }
+  top: calc(88vh / 2 - 5vw / 2 + 10vh / 2); }
 
 #topicLoader {
-  bottom: calc(42vh / 2 - 5vw / 2 + 12vh / 2); }
+  bottom: calc(88vh / 2 - 5vw / 2 + 10vh / 2); }
 
 #topic-graph-wrapper {
-  height: 84vh;
+  height: 88vh;
   bottom: 0;
   background-color: #F8F8F8; }
   #topic-graph-wrapper .graph-header {
     border: none; }
 
 #topic-graph {
-  width: 38vw;
-  height: 39vh;
-  height: 84vh; }
+  width: 36vw;
+  margin-left: 1vw;
+  height: 75vh;
+  padding-bottom: 0.5vh;
+  position: fixed;
+  bottom: 2vh; }
 
 .graph-header {
-  text-align: center;
-  border-bottom: 1px solid black;
   color: black;
-  height: 3vh;
-  font-size: 70%; }
+  font-size: 90%;
+  padding-top: 2.1vh;
+  padding-left: 1.25vw;
+  font-weight: 300; }
+
+.graph-subheader {
+  font-size: 70%;
+  color: #5C5E68;
+  font-weight: 400;
+  padding-left: 1.25vw; }
 
 /*iFrame*/
 #frame-wrapper {
@@ -441,5 +485,14 @@ button {
     left: -15vw; }
   to {
     left: 0vw; } }
+@media (min-device-width: 1300px) {
+  .newspaper-subheading {
+    margin-top: 0.5vh; }
+
+  .navButton {
+    font-size: 170%; }
+
+  #awesomeLogo {
+    font-size: 220%; } }
 
 /*# sourceMappingURL=main.css.map */

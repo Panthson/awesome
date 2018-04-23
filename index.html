@@ -12,28 +12,33 @@
 
 <body>
   <div id="nav-bar">
-    <i id='awesomeLogo' class='fas fa-laptop'></i>
-    <span id='awesomeText'>AWESOME</span>
+    <div class='parent nav-parent'>
+      <i id='awesomeLogo' class='fas fa-laptop child'></i>
+      <span id='awesomeText' class='child'>AWESOME</span>
+    </div>
+
+    <div id='navButtons' class='parent nav-parent'>
+      <i id='saveIcon' class='fas fa-save navButton'></i>
+      <i id='settingsIcon' class='fas fa-cog navButton'></i>
+    </div>
     <div id="search-bar-wrapper" class="std-margin center searchNoFocus">
       <i id='searchIcon' class='fas fa-search'></i>
       <input id="search-bar" type="text" name="Search Bar" placeholder="Search..."></input>
     </div>
-    <!--<span id="prevMonth">December</span>-->
-    <span id="currMonth" class='center'>January 2018</span>
-    <!--<span id="nextMonth">February</span>-->
 
-    <i id='saveIcon' class='fas fa-save navButton'></i>
-    <i id='settingsIcon' class='fas fa-cog navButton'></i>
   </div>
 
 
   <div id="histogram-wrapper" class="std-margin std-border left chart-stag parent">
+    <div class='header-wrapper'>
+      <div class="graph-header">Popular Terms</div>
+      <span class="graph-subheader"></span>
+    </div>
     <canvas id="histogram"></canvas>
     <div id='histogramLoader' class='loader mediumLoader moduleLoader'></div>
   </div>
   <div id="histograph-filter-wrapper" class="std-margin std-border left"></div>
   
-
   
     
   <div id="date-range" class="parent center std-margin std-border">
@@ -42,6 +47,10 @@
     <button id='rarrow' class="glyphicon glyphicon-triangle-right child"></button>
   </div>
 
+  <div id='newspaperlist-header' class='center'>
+    <div class="graph-header">Newspaper Results</div>
+    <span class="graph-subheader"></span>
+  </div>
   <ul id="newspaper-wrapper" class="std-margin center"></ul>  
   <div id='newspaperLoader' class='loader mediumLoader moduleLoader'></div>  
   
@@ -53,19 +62,31 @@
   </div>
   <div id="topic-graph-wrapper" class="std-margin std-border right">
     <div class="graph-header">Topic Graph</div>
+    <span class="graph-subheader"></span>
     <div id='topicLoader' class='loader slowLoader rightLoader moduleLoader'></div>
     <div id="topic-graph"></div>
   </div>
 
+
+  <div id="timeSlider" class='std-margin'></div>
+  <div hidden id="yearly-bubble-chart" class="dc-chart">
+      <strong>Yearly Performance</strong> (radius: fluctuation/index ratio, color: gain/loss)
+      <a class="reset" href="javascript:yearlyBubbleChart.filterAll();dc.redrawAll();"
+         style="display: none;">reset</a>
+  </div>
+
+  <script type="text/javascript" src="js/d3.js"></script>
+  <script type="text/javascript" src="js/crossfilter.js"></script>
+  <script type="text/javascript" src="js/dc.js"></script>
 
   <script src="https://unpkg.com/simplebar@latest/dist/simplebar.js"></script>
   <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
   <script src="js/jquery.js"></script>
   <script src="js/d3.min.js"></script>
   <script src="js/neo4jd3.js"></script>
-  <script src="https://d3js.org/colorbrewer.v1.min.js"></script>
   <script src="js/chart.js"></script>
   <script src="js/peg.js"></script>
+
   <script src="js/main.js"></script>
 </body>
 </html>
