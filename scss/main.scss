@@ -11,9 +11,11 @@ $newspaper_list_height: $newspaper_column_height - $graph_header_height - 2vh;
 $date_range_height: 5vh;
 
 $off_white_background: #F8F8F8;
+$off_white: $off_white_background;
 $g_blue: #2962ff;
 $off_grey : #E8E8E8;
 $dark_grey: #5C5E68;
+$hover_dark_grey: #747680;
 $searchErrorColor: #E80000;
 $accentColor: #00C6D7;
 $UCSD_DARK_BLUE : #182B49;
@@ -46,7 +48,7 @@ body{
   width: 100vw;
   height: 100vh;
   background-color: #E0E0E0;
-  color: #fbfbfb;
+  //color: #fbfbfb;
   *{
     font-family : "Helvetica";
   }
@@ -66,7 +68,7 @@ button{
 
 #awesomeLogo, #awesomeText{
   color: $off_white_background;
-  font-size: 170%;
+  font-size: 150%;
   padding-left: 1vw;
 }
 
@@ -93,6 +95,7 @@ button{
   float: right;
   margin-left: 1vw;
   margin-right: 1vw;
+  color: $off_white_background;
 }
 
 .navButton:hover{
@@ -109,7 +112,7 @@ button{
 }
 
 /* LEFT */
-.left{
+.left-stack{
   width: $histogram_width;
 }
 
@@ -198,9 +201,11 @@ $spinner_width: 5vw;
   font-size: 80%;
 }
 
+$center_left_start: $h_padding + $histogram_width;
+$center_width: $q_bar_width;
 .center{
-  left: $h_padding + $histogram_width;
-  width: $q_bar_width;
+  left: $center_left_start;
+  width: $center_width;
 }
 
 .searchNoFocus{
@@ -228,23 +233,31 @@ $spinner_width: 5vw;
   }
 }
 
+$search_bar_top: ($top_bar_height - $search_bar_height) / 2 - $v_padding;
 #search-bar-wrapper{
   text-align: center;
   height: $search_bar_height;
   position: fixed;
-  top: ($top_bar_height - $search_bar_height) / 2 - $v_padding;
   border-radius: 1% / 8%;
+  top: $search_bar_top;
 
   i{
     width: 9%;
   }
 
-  input{
-    width: 91%;
-  }
-
   transition: background-color 0.5s, box-shadow 0.5s;
 }
+
+#calendarText{
+  position: fixed;
+  top: $search_bar_top + $search_bar_height;
+  right: 100 - $center_left_start - $center_width + 1vw;;
+  width: 0;
+  height: 0;
+
+  z-index: -1;
+}
+
 
 #currMonth{
   position: fixed;
@@ -257,12 +270,28 @@ $spinner_width: 5vw;
 #search-bar-wrapper:focus{
 }
 
-#searchIcon{
+#searchIcon, #calendarIcon{
   color: $dark_grey;
 }
 
+#calendarIcon{
+  position: fixed;
+  top: $search_bar_top + 1.8vh;
+  right: 100 - $center_left_start - $center_width;
+  z-index: 6;
+}
+
+#calendarIcon:hover{
+  cursor: pointer;
+}
+
+
+#calendarIcon:hover{
+  color: $hover_dark_grey;
+}
+
 #search-bar{
-  width: 97.5%;
+  width: 91%;
   height: 90%;
   border: 0;
   margin-top: .45%;
@@ -486,7 +515,7 @@ $arrow_margin: 10vw;
 /* RIGHT */
 $right_width : 38vw;
 $right_module_height: 100vh - $top_bar_height - (2 * $v_padding);
-.right{
+.right-stack{
   width: $right_width;
   position: fixed;
   right: 0;
@@ -674,4 +703,10 @@ $right_loader_placement: calc(#{$right_module_height} / 2 - #{$spinner_width} / 
   #awesomeLogo{
     font-size: 220%;
   }
+
+  #awesomeText{
+    font-size: 170%;
+  }
+
+
 }

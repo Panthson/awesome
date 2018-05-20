@@ -11,6 +11,7 @@
 </head>
 
 <body>
+  <input id="calendarText" class='center'></input>
   <div id="nav-bar">
     <div class='parent nav-parent'>
       <i id='awesomeLogo' class='fas fa-laptop child'></i>
@@ -24,12 +25,13 @@
     <div id="search-bar-wrapper" class="std-margin center searchNoFocus">
       <i id='searchIcon' class='fas fa-search'></i>
       <input id="search-bar" type="text" name="Search Bar" placeholder="Search..."></input>
+      <i id='calendarIcon' class='fas fa-calendar-alt' onclick="toggleCalendar()"></i>
     </div>
 
   </div>
 
 
-  <div id="histogram-wrapper" class="std-margin std-border left chart-stag parent">
+  <div id="histogram-wrapper" class="std-margin std-border left-stack chart-stag parent">
     <div class='header-wrapper'>
       <div class="graph-header">Popular Terms</div>
       <span class="graph-subheader"></span>
@@ -37,7 +39,7 @@
     <canvas id="histogram"></canvas>
     <div id='histogramLoader' class='loader mediumLoader moduleLoader'></div>
   </div>
-  <div id="histograph-filter-wrapper" class="std-margin std-border left"></div>
+  <div id="histograph-filter-wrapper" class="std-margin std-border left-stack"></div>
   
   
     
@@ -56,11 +58,11 @@
   
   <ul id='predictedSearchList' class='center std-margin std-border'></ul>
 
-  <div id="knowledge-graph-wrapper" class="std-margin std-border right">
+  <div id="knowledge-graph-wrapper" class="std-margin std-border right-stack">
     <div class="graph-header">Knowledge Graph</div>
     <div id='knowledgeLoader' class='loader slowLoader rightLoader moduleLoader'></div>
   </div>
-  <div id="topic-graph-wrapper" class="std-margin std-border right">
+  <div id="topic-graph-wrapper" class="std-margin std-border right-stack">
     <div class="graph-header">Topic Graph</div>
     <span class="graph-subheader"></span>
     <div id='topicLoader' class='loader slowLoader rightLoader moduleLoader'></div>
@@ -85,7 +87,11 @@
   <script src="js/d3.min.js"></script>
   <script src="js/neo4jd3.js"></script>
   <script src="js/chart.js"></script>
-  <script src="js/peg.js"></script>
+  <script src="js/peg.js"></script>-->
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
   <script src="js/main.js"></script>
 </body>

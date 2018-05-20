@@ -27,7 +27,14 @@ $(document).ready(function(){
   createChart();
   getInitialData()
   .then(loadData);
+
+  $('#calendarText').daterangepicker();
+  $('#calendarIcon').click(toggleCalendar);
 });
+
+function toggleCalendar(){
+    $('#calendarText').data('daterangepicker').toggle();
+}
 
 function loadGrammar(){
   return new Promise((resolve, reject) => {
@@ -774,12 +781,10 @@ function createTimeSlider(documents){
   var yearlyPerformanceGroup = yearlyDimension.group().reduce(
       /* callback for when data is added to the current filter results */
       function (p, v) {
-          console.log('added');
           return p;
       },
       /* callback for when data is removed from the current filter results */
       function (p, v) {
-          console.log('removed')
           return p;
       },
       /* initialize p */
