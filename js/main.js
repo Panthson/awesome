@@ -29,11 +29,10 @@ $(document).ready(function(){
   .then(loadData);
 
   $('#calendarText').daterangepicker();
-  $('#calendarIcon').click(toggleCalendar);
 });
 
-function toggleCalendar(){
-    $('#calendarText').data('daterangepicker').toggle();
+function showCalendar(e){
+  $('#calendarText').data('daterangepicker').toggle();
 }
 
 function loadGrammar(){
