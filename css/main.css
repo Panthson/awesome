@@ -71,8 +71,10 @@ button {
   width: 20vw; }
 
 #histogram-wrapper {
-  height: 68.5vh;
+  margin-top: 20.5vh;
+  height: 67.5vh;
   position: relative;
+  bottom: 0;
   display: inline-block;
   background-color: #F8F8F8;
   padding-right: 2.7vw;
@@ -86,7 +88,7 @@ button {
   height: 5vw;
   position: fixed;
   z-index: 5;
-  top: calc((68.5vh / 2) - 5vw / 2);
+  bottom: calc((68.5vh / 2) - 5vw / 2);
   left: calc((20vw / 2) - 5vw / 2); }
 
 .mediumLoader {
@@ -98,9 +100,19 @@ button {
 #histograph-filter-wrapper {
   height: 18.5vh;
   position: fixed;
-  bottom: 0;
+  top: 10vh;
   padding: 0.3%;
   background-color: #F8F8F8; }
+
+#timeSlider {
+  left: 0;
+  height: 9vh;
+  width: 22vw 1vw;
+  z-index: 100;
+  position: fixed;
+  bottom: 69.5vh; }
+  #timeSlider g.y {
+    display: none; }
 
 .filterWordWrapper {
   display: inline;
@@ -109,10 +121,11 @@ button {
   margin-left: 1%;
   margin-top: 2%;
   margin-bottom: 2%;
+  height: 4vh;
   padding-bottom: 1%;
   padding-left: 5%;
   padding-right: 4%;
-  border-radius: 15% 15% 15% 15%;
+  border-radius: 15% 15% 15% 15% / 50% 50% 50% 50%;
   float: left;
   background-color: #7C7E88; }
 
@@ -125,16 +138,20 @@ button {
   .filterWordWrapper:hover .wordClose {
     color: red; }
 
+.filterWordText, .wordClose {
+  font-size: 60%;
+  margin-top: 2vh;
+  transform: translateY(-50%); }
+
 .filterWordText {
   padding-right: 5%;
   padding-left: 5%;
   display: inline-block;
-  font-size: 80%; }
+  color: #F8F8F8; }
 
 .wordClose {
   display: inline;
-  margin-left: 1vw;
-  font-size: 80%; }
+  margin-left: 1vw; }
 
 .center {
   left: 21vw;
@@ -187,7 +204,7 @@ button {
 
 #calendarIcon {
   position: fixed;
-  top: 2.8vh;
+  top: 3.4vh;
   right: 41vw;
   z-index: 6; }
 
@@ -214,7 +231,7 @@ button {
   position: fixed;
   padding-top: 0.5vh;
   max-height: 16vh;
-  top: 4.5vh;
+  top: 7vh;
   background: white;
   display: none;
   font-size: 80%;
@@ -253,19 +270,12 @@ button {
   /* Light grey */
   border-top: 16px solid #dd3333; }
 
-#timeSlider {
-  left: 21vw;
-  width: 38vw;
-  height: 9vh;
-  top: 13vh;
-  z-index: 100;
-  position: fixed; }
-  #timeSlider g.y {
-    display: none; }
-
 #newspaperlist-header {
   position: fixed;
-  top: 10vh; }
+  top: 11vh;
+  margin-left: 1vw;
+  padding-bottom: 1vh;
+  background-color: #F8F8F8; }
 
 #newspaper-wrapper {
   height: 77vh;
@@ -401,8 +411,8 @@ button {
 .graph-header {
   color: black;
   font-size: 90%;
-  padding-top: 2.1vh;
-  padding-left: 1.25vw;
+  padding-top: 1.8vh;
+  padding-left: 0.75vw;
   font-weight: 300; }
 
 .graph-subheader {

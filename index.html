@@ -31,6 +31,9 @@
   </div>
 
 
+  <div id="histograph-filter-wrapper" class="std-margin std-border left-stack"></div>
+  <div id="timeSlider"></div>
+
   <div id="histogram-wrapper" class="std-margin std-border left-stack chart-stag parent">
     <div class='header-wrapper'>
       <div class="graph-header">Popular Terms</div>
@@ -39,8 +42,6 @@
     <canvas id="histogram"></canvas>
     <div id='histogramLoader' class='loader mediumLoader moduleLoader'></div>
   </div>
-  <div id="histograph-filter-wrapper" class="std-margin std-border left-stack"></div>
-  
   
     
   <div id="date-range" class="parent center std-margin std-border">
@@ -49,9 +50,9 @@
     <button id='rarrow' class="glyphicon glyphicon-triangle-right child"></button>
   </div>
 
-  <div id='newspaperlist-header' class='center'>
+  <div id='newspaperlist-header' class='center std-border'>
     <div class="graph-header">Newspaper Results</div>
-    <span class="graph-subheader"></span>
+    <span class="graph-subheader newspaper_count"></span>
   </div>
   <ul id="newspaper-wrapper" class="std-margin center"></ul>  
   <div id='newspaperLoader' class='loader mediumLoader moduleLoader'></div>  
@@ -70,7 +71,6 @@
   </div>
 
 
-  <div id="timeSlider" class='std-margin'></div>
   <div hidden id="yearly-bubble-chart" class="dc-chart">
       <strong>Yearly Performance</strong> (radius: fluctuation/index ratio, color: gain/loss)
       <a class="reset" href="javascript:yearlyBubbleChart.filterAll();dc.redrawAll();"

@@ -629,10 +629,18 @@ function isVisible(d){
 }
 
 function refreshDocuments(){
+  console.log('hit');
   var vDocuments = docResults[docIndex];
-  $.each(vDocuments, function(i, d){
-    refreshDocument(d);
+  var ps = vDocuments.map(function(d){
+    return refreshDocument(d);
   });
+
+  Promise.all(ps).then(function(){
+    console.log(docCount);
+    var docCount = $(".newspaper:visible").length;
+    $(".newspaper_count").text(docCount + " Newspapers");
+  });
+ 
 }
 
 function refreshDocument(d){
@@ -644,19 +652,23 @@ function refreshDocument(d){
   var visible = panel.is(':visible');
   var supposedToBeVisible = isVisible(d);
 
-  if(existed){
-    if(visible && !supposedToBeVisible){
-      panel.slideUp();
-    }else if(!visible && supposedToBeVisible){
-      panel.slideDown();
+  return new Promise(function(resolve){
+    if(existed){
+      if(visible && !supposedToBeVisible){
+        return panel.slideUp(resolve);
+      }else if(!visible && supposedToBeVisible){
+        return panel.slideDown(resolve);
+      }
+    }else{
+      if(visible && !supposedToBeVisible){
+        return panel.hide(resolve);
+      }else if(!visible && supposedToBeVisible){
+        return panel.show(resolve);
+      }
     }
-  }else{
-    if(visible && !supposedToBeVisible){
-      panel.hide();
-    }else if(!visible && supposedToBeVisible){
-      panel.show();
-    }
-  }
+    resolve();
+  });
+  
 }
 
 function createDocument(d){
