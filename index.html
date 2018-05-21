@@ -61,12 +61,12 @@
 
   <div id="knowledge-graph-wrapper" class="std-margin std-border right-stack">
     <div class="graph-header">Knowledge Graph</div>
-    <div id='knowledgeLoader' class='loader slowLoader rightLoader moduleLoader'></div>
   </div>
   <div id="topic-graph-wrapper" class="std-margin std-border right-stack">
-    <div class="graph-header">Topic Graph</div>
+    <div id='topicLabel' class="graph-header activeGraph"><i class="fas fa-chart-pie"></i> Topic</div><div id='knowledgeLabel' class="graph-header"><i class="fas fa-chart-pie"></i> Knowledge</div>
     <span class="graph-subheader"></span>
     <div id='topicLoader' class='loader slowLoader rightLoader moduleLoader'></div>
+    <div id='knowledgeLoader' class='loader slowLoader rightLoader moduleLoader knowledgeComponent'></div>
     <div id="topic-graph"></div>
   </div>
 

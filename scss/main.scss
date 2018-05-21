@@ -20,6 +20,7 @@ $searchErrorColor: #E80000;
 $accentColor: #00C6D7;
 $UCSD_DARK_BLUE : #182B49;
 
+
 $module_background: $off_white_background;
 
 *{
@@ -543,6 +544,24 @@ $right_module_height: 100vh - $top_bar_height - (2 * $v_padding);
   right: $right_width / 2 - $spinner_width / 2;
 }
 
+.graph-header{
+  color: black;
+  font-size: 90%;
+  padding-top: 1.8vh;
+  padding-left: 0.75vw;
+  font-weight: 300;
+  display: inline-block;
+}
+
+.graph-subheader{
+  font-size: 70%;
+  color: $dark_grey;
+  font-weight: 400;
+  padding-left: 1.25vw;
+  padding-top: 1vh;
+  display: block;
+}
+
 $right_loader_placement: calc(#{$right_module_height} / 2 - #{$spinner_width} / 2 + #{$top_bar_height} / 2);
 #knowledgeLoader{
   top: $right_loader_placement;
@@ -559,6 +578,30 @@ $right_loader_placement: calc(#{$right_module_height} / 2 - #{$spinner_width} / 
   background-color: $module_background;
   .graph-header{
     border: none;
+    cursor: pointer;
+    padding-top: 1vh;
+    padding-bottom: 0.4vh;
+    margin-top: 1vh;
+    margin-bottom: 1.5vh;
+    padding-right: 0.5vw;
+    margin-left: 0.5vw;
+    padding-left: 0.375vw;
+
+
+  }
+  .graph-header:hover{
+    box-shadow: 0 0 1.8vw 0.4vh $UCSD_DARK_BLUE;
+    border-radius: 1vw / 40%;
+  }
+  .graph-header:active{
+    color: $accentColor;
+  }
+  .graph-subheader{
+    padding-top: 0.5vh;
+  }
+
+  .activeGraph{
+    color: $g_blue;
   }
 }
 
@@ -569,21 +612,6 @@ $right_loader_placement: calc(#{$right_module_height} / 2 - #{$spinner_width} / 
   padding-bottom: 0.5vh;
   position: fixed;
   bottom: $v_padding * 2;
-}
-
-.graph-header{
-  color: black;
-  font-size: 90%;
-  padding-top: 1.8vh;
-  padding-left: 0.75vw;
-  font-weight: 300;
-}
-
-.graph-subheader{
-  font-size: 70%;
-  color: $dark_grey;
-  font-weight: 400;
-  padding-left: 1.25vw;
 }
 
 /*iFrame*/

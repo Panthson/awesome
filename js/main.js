@@ -29,6 +29,27 @@ $(document).ready(function(){
   .then(loadData);
 
   $('#calendarText').daterangepicker();
+
+  $("#topicLabel").click(function(e){
+    e = $(this);
+    if(e.hasClass('activeGraph'))
+      return;
+    $(".activeGraph").removeClass('activeGraph');
+    e.addClass("activeGraph");
+    $("#knowledgeLoader").hide();
+    $("#topic-graph").show();
+  });
+  $("#knowledgeLoader").hide();
+
+  $("#knowledgeLabel").click(function(e){
+    e = $(this);
+    if(e.hasClass('activeGraph'))
+      return;
+    $(".activeGraph").removeClass('activeGraph');
+    e.addClass("activeGraph");
+    $("#knowledgeLoader").show();
+    $("#topic-graph").hide();
+  });
 });
 
 function showCalendar(e){
@@ -629,14 +650,13 @@ function isVisible(d){
 }
 
 function refreshDocuments(){
-  console.log('hit');
   var vDocuments = docResults[docIndex];
   var ps = vDocuments.map(function(d){
     return refreshDocument(d);
   });
 
-  Promise.all(ps).then(function(){
-    console.log(docCount);
+  Promise.all(ps)
+  .then(function(){
     var docCount = $(".newspaper:visible").length;
     $(".newspaper_count").text(docCount + " Newspapers");
   });

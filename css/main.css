@@ -387,6 +387,22 @@ button {
   position: fixed;
   right: 16.5vw; }
 
+.graph-header {
+  color: black;
+  font-size: 90%;
+  padding-top: 1.8vh;
+  padding-left: 0.75vw;
+  font-weight: 300;
+  display: inline-block; }
+
+.graph-subheader {
+  font-size: 70%;
+  color: #5C5E68;
+  font-weight: 400;
+  padding-left: 1.25vw;
+  padding-top: 1vh;
+  display: block; }
+
 #knowledgeLoader {
   top: calc(88vh / 2 - 5vw / 2 + 10vh / 2); }
 
@@ -398,7 +414,24 @@ button {
   bottom: 0;
   background-color: #F8F8F8; }
   #topic-graph-wrapper .graph-header {
-    border: none; }
+    border: none;
+    cursor: pointer;
+    padding-top: 1vh;
+    padding-bottom: 0.4vh;
+    margin-top: 1vh;
+    margin-bottom: 1.5vh;
+    padding-right: 0.5vw;
+    margin-left: 0.5vw;
+    padding-left: 0.375vw; }
+  #topic-graph-wrapper .graph-header:hover {
+    box-shadow: 0 0 1.8vw 0.4vh #182B49;
+    border-radius: 1vw / 40%; }
+  #topic-graph-wrapper .graph-header:active {
+    color: #00C6D7; }
+  #topic-graph-wrapper .graph-subheader {
+    padding-top: 0.5vh; }
+  #topic-graph-wrapper .activeGraph {
+    color: #2962ff; }
 
 #topic-graph {
   width: 36vw;
@@ -407,19 +440,6 @@ button {
   padding-bottom: 0.5vh;
   position: fixed;
   bottom: 2vh; }
-
-.graph-header {
-  color: black;
-  font-size: 90%;
-  padding-top: 1.8vh;
-  padding-left: 0.75vw;
-  font-weight: 300; }
-
-.graph-subheader {
-  font-size: 70%;
-  color: #5C5E68;
-  font-weight: 400;
-  padding-left: 1.25vw; }
 
 /*iFrame*/
 #frame-wrapper {
