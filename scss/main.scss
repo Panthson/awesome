@@ -164,7 +164,7 @@ $spinner_width: 5vw;
 #timeSlider{
   left: 0;
   height: $graph_header_height;
-  width: $histogram_width + 2 $h_padding;
+  width: $histogram_width + 2 * $h_padding;
   z-index: 100;
   position: fixed;
   bottom: $histogram_height + $v_padding;
@@ -271,8 +271,8 @@ $search_bar_top: ($top_bar_height - $search_bar_height) / 2 - $v_padding;
 
 #calendarText{
   position: fixed;
-  top: $search_bar_top + $search_bar_height;
-  right: 100 - $center_left_start - $center_width + 1vw;;
+  top: $search_bar_top + $search_bar_height - 1vh;
+  left: $center_left_start + 1vw; 
   width: 0;
   height: 0;
 
@@ -746,5 +746,8 @@ $right_loader_placement: calc(#{$right_module_height} / 2 - #{$spinner_width} / 
     font-size: 170%;
   }
 
+  #calendarText{
+    left: $center_left_start + 1.5vw; 
+  }
 
 }

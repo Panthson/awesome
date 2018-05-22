@@ -107,7 +107,7 @@ button {
 #timeSlider {
   left: 0;
   height: 9vh;
-  width: 22vw 1vw;
+  width: 22vw;
   z-index: 100;
   position: fixed;
   bottom: 69.5vh; }
@@ -186,8 +186,8 @@ button {
 
 #calendarText {
   position: fixed;
-  top: 7vh;
-  right: 42vw;
+  top: 6vh;
+  left: 22vw;
   width: 0;
   height: 0;
   z-index: -1; }
@@ -544,6 +544,9 @@ button {
     font-size: 220%; }
 
   #awesomeText {
-    font-size: 170%; } }
+    font-size: 170%; }
+
+  #calendarText {
+    left: 22.5vw; } }
 
 /*# sourceMappingURL=main.css.map */
