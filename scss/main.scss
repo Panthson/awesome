@@ -4,6 +4,7 @@ $v_padding: 1vh;
 $histogram_width: 20vw;
 $graph_header_height: 9vh;
 $q_bar_width: 38vw;
+$center_width: $q_bar_width;
 $search_bar_height: 6vh;
 $top_bar_height: 10vh;
 $newspaper_column_height: 100vh - (2 * $v_padding) - $top_bar_height;
@@ -20,6 +21,7 @@ $searchErrorColor: #E80000;
 $accentColor: #00C6D7;
 $UCSD_DARK_BLUE : #182B49;
 
+$right_width : 38vw;
 
 $module_background: $off_white_background;
 
@@ -223,8 +225,7 @@ $spinner_width: 5vw;
 }
 
 $center_left_start: $h_padding + $histogram_width;
-$center_width: $q_bar_width;
-.center{
+.center-stack{
   left: $center_left_start;
   width: $center_width;
 }
@@ -389,10 +390,138 @@ $search_bar_top: ($top_bar_height - $search_bar_height) / 2 - $v_padding;
   position: fixed;
   top: $top_bar_height + $v_padding;
   margin-left: $h_padding;
-  padding-bottom: $v_padding;
+  z-index: 3;
 
   background-color: $module_background;
+
+  .graph-header{
+    padding-top: $v_padding;
+  }
+
+  .graph-subheader{
+    padding-bottom: $v_padding / 2;
+  }
 }
+
+#newspaperJumpWrapper{
+  width: auto;
+  padding-left: 0.75vw;
+  cursor: pointer;
+  padding-top: $v_padding / 2;
+  padding-bottom: $v_padding / 2;
+
+  display: none;
+
+  span{
+    font-size: 85%;
+    display: inline-block;
+    transition: font-size 0.3s;
+    //transition-delay: 0.3s;
+  }
+  span:hover{
+    font-size: 110%;
+    font-weight: bold;
+  }
+
+  .selectedJumper{
+    font-size: 110%;
+    font-weight: bold;
+  }
+}
+
+#jumpIcon{
+  font-size: 70%;
+}
+
+#newspaperSort{
+  position: fixed;
+  top: $top_bar_height + $v_padding;
+  right: $right_width + (2 * $h_padding);
+  margin-right: $h_padding;
+  margin-top: $v_padding;
+  cursor: pointer;
+
+  color: $hover_dark_grey;
+}
+
+#newspaperSort:hover{
+  color: black;
+  font-size: 120%;
+}
+
+
+
+#newspaperSortOptions{
+  position: fixed;
+  top: $top_bar_height + $v_padding + 4vh;
+  right: $right_width + (2 * $h_padding) + 1vw;
+  overflow: hidden;
+  list-style-type: none;
+  cursor: pointer;
+  width: 0;
+  height: 0;
+  border: 1px solid $dark_grey;
+  transition: all .6s;
+
+  border-radius: 0.5vw / 0.5vh;
+
+  background-color: $off_white;
+
+  li{
+    height: 3vh;
+    padding-left: 0.5vw;
+
+    position: relative;
+  }
+
+  li:last-child{
+    border-radius: 0.5vw / 0.5vh;
+  }
+
+  span{
+    font-size: 90%;
+    position: absolute;
+
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: left;
+    left: 3vw;
+  }
+}
+
+#newspaperSortOptions.sortingVisible{
+  width: 18vw;
+  height: auto;
+
+}
+
+#newspaperSortOptions li:hover{
+  background-color: $off_grey;
+}
+
+#newspaperSortOptions li:active{
+  color: $accentColor;
+}
+
+.selectedNewspaperSort{
+  background-color: $off_grey;
+  color: $g_blue;
+}
+
+
+.newspaperSortIcon{
+  margin-left: 1vw;
+  padding-right: 0.7vw;
+  font-size: 130%;
+  position: absolute;
+
+  left: 5%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+
 
 #newspaper-wrapper{
   height: $newspaper_list_height;
@@ -524,7 +653,6 @@ $arrow_margin: 10vw;
 }
 
 /* RIGHT */
-$right_width : 38vw;
 $right_module_height: 100vh - $top_bar_height - (2 * $v_padding);
 .right-stack{
   width: $right_width;
@@ -580,7 +708,7 @@ $right_loader_placement: calc(#{$right_module_height} / 2 - #{$spinner_width} / 
     border: none;
     cursor: pointer;
     padding-top: 1vh;
-    padding-bottom: 0.4vh;
+    padding-bottom: 0.6vh;
     margin-top: 1vh;
     margin-bottom: 1.5vh;
     padding-right: 0.5vw;

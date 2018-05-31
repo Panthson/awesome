@@ -11,7 +11,7 @@
 </head>
 
 <body>
-  <input id="calendarText" class='center'></input>
+  <input id="calendarText" class='center-stack'></input>
   <div id="nav-bar">
     <div class='parent nav-parent'>
       <i id='awesomeLogo' class='fas fa-laptop child'></i>
@@ -22,7 +22,7 @@
       <i id='saveIcon' class='fas fa-save navButton'></i>
       <i id='settingsIcon' class='fas fa-cog navButton'></i>
     </div>
-    <div id="search-bar-wrapper" class="std-margin center searchNoFocus">
+    <div id="search-bar-wrapper" class="std-margin center-stack searchNoFocus">
       <i id='searchIcon' class='fas fa-search'></i>
       <input id="search-bar" type="text" name="Search Bar" placeholder="Search..."></input>
       <i id='calendarIcon' class='fas fa-calendar-alt' onclick="showCalendar()"></i>
@@ -44,20 +44,57 @@
   </div>
   
     
-  <div id="date-range" class="parent center std-margin std-border">
+  <div id="date-range" class="parent center-stack std-margin std-border">
     <button id='larrow' class="glyphicon glyphicon-triangle-left child disabledButton"></button>
     <span id='dateRangeText' class='child'></span>
     <button id='rarrow' class="glyphicon glyphicon-triangle-right child"></button>
   </div>
 
-  <div id='newspaperlist-header' class='center std-border'>
+  <div id='newspaperlist-header' class='center-stack std-border'>
     <div class="graph-header">Newspaper Results</div>
     <span class="graph-subheader newspaper_count"></span>
+    <i id='newspaperSort' class='fas fa-ellipsis-v'></i>
+    <ul id='newspaperSortOptions'>
+      <li id='nHeadlineSort'><i class='fas fa-sort-alpha-up newspaperSortIcon'></i> <span>Headline Sort</span></li>
+      <li id='nAuthorSort'><i class='fas fa-sort-alpha-up newspaperSortIcon'></i> <span>Author Sort</span></li>
+      <li id='nNewspaperSort'><i class='fas fa-sort-alpha-up newspaperSortIcon'></i> <span>Newspaper Sort</span></li>
+      <li id='nDateSort' class='selectedNewspaperSort'><i class='far fa-calendar newspaperSortIcon'></i> <span>Date Sort</span></li>
+      <li id='nRandomSort'><i class='fas fa-random newspaperSortIcon'></i> <span>Random</span></li>
+    </ul>
+    <div id='newspaperJumpWrapper'>
+      <i class='fas fa-search' id='jumpIcon'></i>
+      <span class='newspaperJump selectedJumper'>A</span>
+      <span class='newspaperJump'>B</span>
+      <span class='newspaperJump'>C</span>
+      <span class='newspaperJump'>D</span>
+      <span class='newspaperJump'>E</span>
+      <span class='newspaperJump'>F</span>
+      <span class='newspaperJump'>G</span>
+      <span class='newspaperJump'>H</span>
+      <span class='newspaperJump'>I</span>
+      <span class='newspaperJump'>J</span>
+      <span class='newspaperJump'>K</span>
+      <span class='newspaperJump'>L</span>
+      <span class='newspaperJump'>M</span>
+      <span class='newspaperJump'>N</span>
+      <span class='newspaperJump'>O</span>
+      <span class='newspaperJump'>P</span>
+      <span class='newspaperJump'>Q</span>
+      <span class='newspaperJump'>R</span>
+      <span class='newspaperJump'>S</span>
+      <span class='newspaperJump'>T</span>
+      <span class='newspaperJump'>U</span>
+      <span class='newspaperJump'>V</span>
+      <span class='newspaperJump'>W</span>
+      <span class='newspaperJump'>X</span>
+      <span class='newspaperJump'>Y</span>
+      <span class='newspaperJump'>Z</span>
+    </div>
   </div>
-  <ul id="newspaper-wrapper" class="std-margin center"></ul>  
+  <ul id="newspaper-wrapper" class="std-margin center-stack"></ul>  
   <div id='newspaperLoader' class='loader mediumLoader moduleLoader'></div>  
   
-  <ul id='predictedSearchList' class='center std-margin std-border'></ul>
+  <ul id='predictedSearchList' class='center-stack std-margin std-border'></ul>
 
   <div id="knowledge-graph-wrapper" class="std-margin std-border right-stack">
     <div class="graph-header">Knowledge Graph</div>
@@ -82,7 +119,7 @@
   <script type="text/javascript" src="js/dc.js"></script>
 
   <script src="https://unpkg.com/simplebar@latest/dist/simplebar.js"></script>
-  <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js" integrity="sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>
   <script src="js/jquery.js"></script>
   <script src="js/d3.min.js"></script>
   <script src="js/neo4jd3.js"></script>
