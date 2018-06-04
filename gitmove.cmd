@@ -1,1 +1,0 @@
-xcopy /s/y *.* ..\awesome-stack\awsm-web\src\main\resources\static

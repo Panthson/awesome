@@ -416,7 +416,6 @@ $search_bar_top: ($top_bar_height - $search_bar_height) / 2 - $v_padding;
     font-size: 85%;
     display: inline-block;
     transition: font-size 0.3s;
-    //transition-delay: 0.3s;
   }
   span:hover{
     font-size: 110%;
