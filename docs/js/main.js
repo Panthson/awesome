@@ -15,6 +15,14 @@ $(document).ready(function(){
 
   $('#calendarText').daterangepicker();
 
+  $("#histograph-filter-wrapper").hover(timeSliderResize, function(){
+    $("#timeSlider").hide();
+    setTimeout(function(){
+      timeSliderResize();
+      $("#timeSlider").show();
+    }, 300);
+  });
+
   setTimeout(function(){
     $("#newspaperSort").click(function(e){
       e.stopPropagation();
@@ -910,7 +918,7 @@ var width = Math.max($("#timeSlider").width(), 0);
   
 }
 
-$( window ).resize(function() {
+function timeSliderResize(){
   var height = $("#timeSlider").height();
   var width = Math.max($("#timeSlider").width(), 0);
   height = Math.max(height, 0);
@@ -919,7 +927,9 @@ $( window ).resize(function() {
                 .rescale()
                 .redraw();
   dc.renderAll();
-});
+}
+
+$( window ).resize(timeSliderResize);
 
 /*
  *   TOPIC GRAPH HANDLERS

@@ -122,9 +122,9 @@ button{
 $histogram_height: 78.5vh - $top_bar_height;
 $filter_height: 18.5vh;
 #histogram-wrapper{
-  margin-top: $filter_height + 2 * $v_padding;
+  //margin-top: $filter_height + 2 * $v_padding;
   height: $histogram_height - $v_padding;
-  position: relative;
+  position: fixed;
   bottom: 0;
   display: inline-block;
   background-color: $module_background;
@@ -157,53 +157,61 @@ $spinner_width: 5vw;
 
 #histograph-filter-wrapper{
   height: $filter_height;
-  position: fixed;
-  top: $top_bar_height;
+  position: relative;
+  //top: $top_bar_height;
   padding: 0.3%;
   background-color: $module_background;
+  z-index: 5;
+
+  transition: width 0.3s, height 0.3s;
 }
+
+
 
 #timeSlider{
   left: 0;
   height: $graph_header_height;
-  width: $histogram_width + 2 * $h_padding;
+  width: 100%;
   z-index: 100;
-  position: fixed;
-  bottom: $histogram_height + $v_padding;
+  position: absolute;
+  bottom: 0;
+  //bottom: $histogram_height + $v_padding;
 
   g.y {
     display: none;
   }
 }
 
+#histograph-filter-wrapper:hover{
+  height: $filter_height * 1.5;
+  width: $histogram_width * 1.5;
+
+  #timeSlider{
+    width: $histogram_width * 1.5;
+    //display: none;
+  }
+}
+
+#histograph-filter-wrapper:hover > #timeSlider{
+    width: $histogram_width * 1.5;
+}
+
 .filterWordWrapper{
+  position: relative;
   display: inline;
   border: 1px black solid;
-  margin-right: 1% ;
-  margin-left: 1%;
-  margin-top: 2%;
-  margin-bottom: 2%;
+  margin-right: 0.5vw;
+  margin-left: 0.5vw;
+  margin-top: 0.5vh;
+  margin-bottom: 0.5vh;
   height: 4vh;
-  padding-bottom: 1%;
-  padding-left: 5%;
-  padding-right: 4%;
-  border-radius: 15% 15% 15% 15% / 50% 50% 50% 50%;
+  padding-bottom: 1vh;
+  padding-left: 1vw;
+  padding-right: 1vw;
+  border-radius: 25% 25% 25% 25% / 50% 50% 50% 50%;
   float: left;
 
   background-color: #7C7E88;
-}
-
-.filterWordWrapper:hover{
-  cursor: pointer;
-  background-color: #FFCCCB;
-
-  .filterWordText{
-    font-style: italic;
-    color: black;
-  }
-  .wordClose{
-    color: red;
-  }
 }
 
 .filterWordText, .wordClose{
@@ -213,15 +221,35 @@ $spinner_width: 5vw;
 }
 
 .filterWordText{
-  padding-right: 5%;
-  padding-left: 5%;
+  padding-right: 1vw;
+  padding-left: 0.5vw;
   display: inline-block;
   color: $off_white;
 }
 
 .wordClose{
-  display: inline;
+  display: none;
+  position: absolute;
   margin-left: 1vw;
+  top: 0;
+  right: 0.5vw;
+}
+
+.filterWordWrapper:hover{
+  cursor: pointer;
+  background-color: #FFCCCB;
+  border-top-right-radius: 0.5vw / 0.5vh;
+  border-bottom-right-radius: 0.5vw / 0.5vh;
+  padding-right: 1.5vw;
+
+  .filterWordText{
+    font-style: italic;
+    color: black;
+  }
+  .wordClose{
+    display: inline;
+    color: red;
+  }
 }
 
 $center_left_start: $h_padding + $histogram_width;
