@@ -772,7 +772,7 @@ $right_loader_placement: calc(#{$right_module_height} / 2 - #{$spinner_width} / 
 /*iFrame*/
 #frame-wrapper{
   position: fixed;
-  z-index: 1;
+  z-index: 5;
   background-color: rgba(0, 0, 0, 0.75);
   height: 100vh;
   width: 100vw;
