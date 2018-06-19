@@ -208,7 +208,7 @@ $spinner_width: 5vw;
   padding-bottom: 1vh;
   padding-left: 1vw;
   padding-right: 1vw;
-  border-radius: 25% 25% 25% 25% / 50% 50% 50% 50%;
+  border-radius: 1.5vw 1.5vw 1.5vw 1.5vw / 1.5vh 1.5vh 1.5vh 1.5vh;
   float: left;
 
   background-color: #7C7E88;
@@ -220,11 +220,41 @@ $spinner_width: 5vw;
   transform: translateY(-50%);
 }
 
+.filterWordCombiner{
+  margin-top: 2vh;
+  transform: translateY(-50%);
+  font-size: 60%;
+  display: inline-block;
+  color: white;
+  font-weight: bold;
+  margin-right: 0.5vw;
+}
+
+.filterWordCombiner:before{
+  content:'\222A';
+}
+
+.filterWordCombiner:hover::before{
+  content:'\2229';
+}
+
+.andCombiner:before{
+  content:'\2229';
+}
+
+.andCombiner:hover::before{
+  content:'\222A';
+}
+
 .filterWordText{
   padding-right: 1vw;
   padding-left: 0.5vw;
   display: inline-block;
   color: $off_white;
+}
+
+.filterWordText:hover::before { 
+  content: "~";
 }
 
 .wordClose{
@@ -237,14 +267,13 @@ $spinner_width: 5vw;
 
 .filterWordWrapper:hover{
   cursor: pointer;
-  background-color: #FFCCCB;
-  border-top-right-radius: 0.5vw / 0.5vh;
-  border-bottom-right-radius: 0.5vw / 0.5vh;
+  background-color: $g_blue;
+  border-top-right-radius: 0.5vw 0.5vh;
+  border-bottom-right-radius: 0.5vw 0.5vh;
   padding-right: 1.5vw;
 
-  .filterWordText{
-    font-style: italic;
-    color: black;
+  .filterWordText, .filterWordCombiner{
+    //color: black;
   }
   .wordClose{
     display: inline;
@@ -870,6 +899,7 @@ $right_loader_placement: calc(#{$right_module_height} / 2 - #{$spinner_width} / 
   float: right;
   right: 0%;
   top: 0%;
+  z-index: 2;
 }
 
 #popup-text{

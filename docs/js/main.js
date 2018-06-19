@@ -1,5 +1,6 @@
 const WORD_MAX = 10;
 const RAND_DOC_LENGTH = 20;
+const TIME_OUT = 10;
 
 var docResults, docIndex = 0;
 $(document).ready(function(){
@@ -40,9 +41,6 @@ $(document).ready(function(){
     e.addClass('selectedNewspaperSort');
 
     submitQuery($("#search-bar").val());
-
-    console.log(e.attr('id'));
-    //if(e.attr('id') === 'hi')
   });
 
   $("#newspaperJumpWrapper span").click(function(e){
@@ -264,7 +262,7 @@ function submitQuery(text){
       });
 
     return new Promise(function(resolve, reject){
-      setTimeout(resolve, 3000);
+      setTimeout(resolve, TIME_OUT);
     })
     .then(function(){
       queryPending = false;
@@ -484,9 +482,9 @@ function createChart(){
                   //get specific label by index
                   var bar_last_clicked = histogramDataSet.labels[clickedElementindex];
 
-                  getAssociatedDocuments(bar_last_clicked)
-                  .then(function(docs){
-                    pushTerm(bar_last_clicked, docs);
+                  setAssociatedDocuments(bar_last_clicked)
+                  .then(function(){
+                    pushTerm(bar_last_clicked);
                   }).catch(console.log);
               }
           }
@@ -494,30 +492,94 @@ function createChart(){
   });
 }
 
-var filterWords = {};
 
-function pushTerm(word, docs){
-  if(filterWords[word]){
-    $("#filterWord" + word).click();
+function pushTerm(word){
+  if($("#filterWord" + word).length){
+    $("#filterWord" + word).remove();
+    refreshDocuments();
     return;
   }
-  filterWords[word] = docs;
 
-  var wrapper = $("<div>").addClass('filterWordWrapper');
+  var wrapper = $('<div ondrop="drop(event)" ondragover="allowDrop(event)" draggable="true" ondragstart="drag(event)"></div>').addClass('filterWordWrapper');
   var text = $("<span>").addClass('filterWordText').text(word);
   var closeButtton = $("<i>").addClass('fas fa-times wordClose');
 
-  wrapper.attr('id', "filterWord" + word);
+  wrapper.attr('id', 'filterWord' + getRandomInt(10000));
   wrapper.append(text);
   wrapper.append(closeButtton);
 
-  wrapper.click(function(){
-    delete filterWords[word];
-    $(this).remove();
+  setTimeout(function(){
+    wrapper.find(' svg').click(function(){
+      $(this).parent().remove();
+      refreshDocuments();
+    });
+  }, 100);
+
+  text.click(function(e){
+    e = $(this);
+    if(e.text().indexOf("~") !== -1){
+      e.text(e.text().substring(1));
+    }else{
+      e.text("~" + e.text());
+    }
+    e.parent().attr('id', 'filterWord' + getRandomInt(10000));
     refreshDocuments();
   });
 
   $("#histograph-filter-wrapper").append(wrapper);
+  refreshDocuments();
+}
+
+function allowDrop(ev){
+  ev.preventDefault();
+}
+
+function drag(ev){
+  ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function drop(ev){
+  ev.preventDefault();
+  var data = ev.dataTransfer.getData("text");
+  var t1 = $("#" + data);
+  var t2 = $(ev.toElement);
+  if(t2.is('span'))
+    t2 = t2.parent();
+  combineTerms(t1, t2);
+}
+
+function encrypt(s){
+  s = s.split(" & ").join("_AND_");
+  return s;
+}
+
+function decrypt(s){
+  s = s.split("_AND_").join("&");
+  return s;
+}
+
+//puts the word where t1 is
+function combineTerms(t1, t2){
+  
+  t1.find(".wordClose").remove();
+  
+  var combiner = $("<span></span>");
+  combiner.addClass('filterWordCombiner');
+  combiner.click(function(e){
+    t1.attr('id', 'filterWord' + getRandomInt(10000));
+    $(this).toggleClass('andCombiner');
+    refreshDocuments();
+  });
+
+  t1.append(combiner);
+  t1.attr('id', 'filterWord' + getRandomInt(10000));
+
+  t2.children().each(function(e){
+    e = $(this);
+    e.detach().appendTo(t1);
+  });
+
+  t2.remove();
   refreshDocuments();
 }
 
@@ -626,7 +688,7 @@ function getRandomData(){
 }
 
 var wordHash = [];
-function getAssociatedDocuments(word){
+function setAssociatedDocuments(word){
   if(wordHash[word])
     return Promise.resolve(wordHash[word]);
 
@@ -651,7 +713,6 @@ function loadData(data){
 }
 
 function daysInMonth (month, year) {
-  console.log(month, year, new Date(year, month, 0).getDate());
   return new Date(year, month, 0).getDate();
 }
 
@@ -698,15 +759,75 @@ function updateDocuments(documents){
 }
 
 function isVisible(d){
-  if($.isEmptyObject(filterWords))
-    return true;
+ var filters = [];
+ $(".filterWordWrapper")
+ .each(function(i, e){
+  e = $(this);
+  var query = '';
+  e.find('span').each(function(j, f){
+    f = $(this);
+    var o = {}, text;
+    if(j % 2 == 0){
+      text = f.text();
+      text = text.split('_').join('');
+      if(text.startsWith('~')){
+        query += '_N';
+        text = text.substring(1);
+      }
+      query += text;
+    }else if(f.hasClass('andCombiner')){
+      query += '_A';
+    }else
+      query += '_O';
+  });
+  filters.push(query);
+ });
 
-  var clickedWords = Object.keys(filterWords);
-  var lists = clickedWords.map(function(val, i){
-    return filterWords[val].indexOf(d.docID) !== -1;
-  });//returns an array of whether each word had the doc id
-  //only need one to say its visible
-  return lists.reduce(function(current, next){ return current && next; });
+ if(!filters.length)
+  return true;
+
+ return filters.reduce(function(current, next){
+  var o = queryVisible(next, d.docID);
+  return current && o;
+ }, true);
+}
+
+function queryVisible(text, docID){
+  var o = {}, c, ret = true, not = false, or_combine = false, subtext, subval, next_underscore;
+  for(var i = 0; i < text.length; i++){
+    c = text[i];
+    if(c === '_'){
+      i++;
+      c = text[i];
+      if(c === 'N')
+        not = true;
+      else
+        or_combine = c === 'O';
+      continue;
+    }
+
+
+    //calculate next word
+    next_underscore = text.substring(i).indexOf('_');
+    if(next_underscore === -1)
+      subtext = text.substring(i);
+    else
+      subtext = text.substring(i, next_underscore + i);
+    i += subtext.length - 1;
+
+    //determine if doc should be displayed;
+    subval = wordHash[subtext].indexOf(docID) !== -1;
+    if(not)
+      subval = !subval;
+
+    if(or_combine)
+      ret = ret || subval;
+    else
+      ret = ret && subval;
+
+    not = false;
+  }
+  return ret;
 }
 
 function refreshDocuments(){
